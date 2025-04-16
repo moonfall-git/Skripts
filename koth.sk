@@ -6,7 +6,7 @@ on script load:
 every 5 minutes:
 	if {koth} is true:
 		set {_droploc} to location(-12957.91, 107, 2414.15)
-		drop 1 light gray candle named "&e&l" with lore "&7Use to increase your odds at the next Vote Party!" at {_droploc}
+		drop 1 light gray candle named "&e&lʀᴀꜰꜰʟᴇ ᴛɪᴄᴋᴇᴛ" with lore "&7Use to increase your odds at the next Vote Party!" at {_droploc}
 		broadcast "&aA &6&lLegendary&a item has been dropped on the hill!"
 
 every 1 minute:
@@ -82,6 +82,17 @@ on pick up:
 		delete event-dropped item
 		set {_item} to a totem of undying named "&cAnti-Knockback &7(1 Use)"
 		set event-player's off hand item to {_item}
+		play sound "minecraft:item.armor.equip_wolf" to all players at event-location
+	if event-item is a mushroom stew named "&6Full Heal &7(1 Use)":
+		if amount of event-item in player's inventory > 2:
+			cancel event
+			delete event-dropped item
+			send "&cYou can only carry 2 &4Full Heals&c!"
+		else:
+			cancel event
+			delete event-dropped item
+			give player 1 mushroom stew named "&6Full Heal &7(1 Use)" with lore "&7Right Click to restore all health and hunger" at {_droploc}
+
 
 command /totemtotem:
 	trigger:
@@ -254,7 +265,7 @@ on region enter:
 				wait 1 second
 				play sound "minecraft:block.note_block.bell" with volume 1 and pitch 2 to all players
 
-				create bossbar titled "<#FF0000>K<#FF1000>i<#FF3000>n<#FF4C00>g <#FF7F00>o<#FF9900>f <#FCC00>t<#FFE500>h<#FFFF00>e <#AAFF00>H<#80FF00>i<#55FF00>l<#2BFF00>l&e: &2%player%" and id "control" for all players with progress 100 with colors green
+				create bossbar titled "<#FF0000>K<#FF1000>i<#FF3000>n<#FF4C00>g <#FF7F00>o<#FF9900>f <#FCC000>t<#FFE500>h<#FFFF00>e <#AAFF00>H<#80FF00>i<#55FF00>l<#2BFF00>l&e: &2%player%" and id "control" for all players with progress 100 with colors green
 				remove bossbar "koth"
 
 				set {_helmet} to leather helmet
@@ -288,7 +299,7 @@ on region enter:
 		set {_sword} to wooden sword with name "&dDagger"
 		enchant {_sword} with sharpness 2
 		set slot 0 of player's inventory to {_sword}
-		set {_rod} to lightning rod with name "&dKnockback Rod"
+		set {_rod} to lightning rod with name "&4Knockback Rod"
 		set {_cookie} to cookie with name "&eLaunch Cookie"
 		set slot 2 of player's inventory to {_cookie}
 		enchant {_rod} with knockback 3
@@ -564,7 +575,7 @@ command /koth <text>:
 			if {king} is set:
 				send "&6%{king}% &eis the current King!"
 			else:
-				send "&6There is no King currently!"
+				send "&eThere is no King currently!"
 
 		if arg-1 is "stop":
 			loop all players:
