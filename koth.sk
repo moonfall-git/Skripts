@@ -11,7 +11,7 @@ every 5 minutes:
 
 every 1 minute:
 	if {king} is set:
-		set {_dropnum} to random integer between 1 and 4
+		set {_droprandomloc} to random integer between 1 and 4
 		if {_droprandomloc} is 1:
 			set {_droploc} to location(-12952.95, 107, 2408.76)
 		if {_droprandomloc} is 2:
@@ -20,4 +20,39 @@ every 1 minute:
 			set {_droploc} to location(-12963.1, 107, 2419.03)
 		if {_droprandomloc} is 4:
 			set {_droploc} to location(-12962.98, 107, 2408.73)
-			
+		drop 1 mushroom stew named "&6Full Heal &7(1 Use)" with lore "&7Right Click to restore all health and hunger" at {_droploc}
+		play sound "minecraft:entity.item.pickup" at {_droploc} to all players
+
+every 30 seconds:
+	if {king} is set:
+		set {_droprandom} to random integer between 1 and 4
+		set {_droprandomloc} to random integer between 1 and 5
+		if {_droprandomloc} is 1:
+			set {_droploc} to location(-12958, 102, 2419.5)
+		if {_droprandomloc} is 2:
+			set {_droploc} to location(-12969.12, 97, 2424.27)
+		if {_droprandomloc} is 3:
+			set {_droploc} to location(-12947.29, 97, 2403.77)
+		if {_droprandomloc} is 4:
+			set {_droploc} to location(-12952.55, 97, 2413.96)
+		if {_droprandomloc} is 5:
+			set {_droploc} to location(-12971.48, 97, 2414.01)
+		if {_droprandom} is 1 or 4:
+			drop 1 red mushroom named "&aSpeed Mushroom &7(1 Use)" with lore "&7Right Click for a temporary speed boost!" at {_droploc}
+			play sound "minecraft:entity.item.pickup" at {_droploc} to all players
+		if {_droprandom} is 2:
+			drop 1 fermented spider eye named "&bInvisibility Eye &7(1 Use)" with lore "&7Right Click for temporary invisibility!" at {_droploc}
+			play sound "minecraft:entity.item.pickup" at {_droploc} to all players
+		if {_droprandom} is 3:
+			drop 1 totem of undying named "&cAnti-Knockback &7(1 Use)" with lore "&7Will automatically cancel knockback!" at {_droploc}
+			play sound "minecraft:entity.item.pickup" at {_droploc} to all players
+
+on tab complete of "/koth":
+	set tab completions for position 1 to "start", "clear", "silentstart", "current", "reload", and "stop"
+
+on command:
+	if {kothinventory::*} contains player:
+		if name of player is not "Mebis":
+			if command is not "l" or "g" or "mod" or "msg" or "r" or "reply" or "staff:
+				cancel event
+				send "&cYou can't use commands inside the Temple!"
