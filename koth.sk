@@ -56,3 +56,536 @@ on command:
 			if command is not "l" or "g" or "mod" or "msg" or "r" or "reply" or "staff:
 				cancel event
 				send "&cYou can't use commands inside the Temple!"
+
+command /clearkoth:
+	trigger:
+		clear {kothinventory::*}
+
+command /kothloc:
+	trigger:
+		send location of player to player
+
+command /kothtest:
+	trigger:
+		if {kothinventory::*} contains player:
+			send "success" to player
+		else if {kothinventory::*} does not contain player:
+			send "no" to player
+
+on swap hand items:
+	if {kothinventory::*} contains player:
+		cancel event
+
+on pick up:
+	if event-item is a totem of undying named "&cAnti-Knockback &7(1 Use)":
+		cancel event
+		delete event-dropped item
+		set {_item} to a totem of undying named "&cAnti-Knockback &7(1 Use)"
+		set event-player's off hand item to {_item}
+
+command /totemtotem:
+	trigger:
+		drop 1 totem of undying named "&cAnti-Knockback &7(1 Use)" 2 above player's location
+
+on entity knockback:
+	if knockback victim is a player:
+		if knockback attacker's tool is a lightning rod named "&4Knockback Rod":
+			if knockback victim's off hand item is a totem of undying named "&cAnti-Knockback &7(1 Use)":
+				send "&cAnti-Knockback&a was just used!" to knockback victim
+				cancel event
+				wait 3 ticks
+				teleport knockback victim to event-location
+				remove 1 totem of undying named "&cAnti-Knockback &7(1 Use)" from player's inventory
+				play resurrection by totem on the player
+
+on damage of player:
+	if {kothinventory::*} contains victim:
+		if {invuln.%victim%} is true:
+			cancel event
+			# Check if the incoming damage would reduce health to zero or below.
+		if damage > victim's health:
+			cancel event
+			play sound "minecraft:entity.experience_orb.pickup" to attacker
+			play sound "minecraft:entity.experience_orb.pickup" to victim
+			set damage to 0
+			if {king} is not victim:
+				broadcast "&4%victim%&c has been killed by &4%attacker%&c!"
+			set victim's health to 20 # Fully heal the player (assuming 20 is max health)
+			set {_locnum} to random integer between 1 and 4
+
+			if {_locnum} is 1:
+				set {_loc} to location at -12917.5, 67, 2414.5 in world world
+				set yaw of {_loc} to 89.3
+				set pitch of {_loc} to -1.05
+				teleport victim to {_loc}
+			if {_locnum} is 2:
+				set {_loc} to location at -12957.94, 67, 2455.26 in world world
+				set yaw of {_loc} to 179.16
+				set pitch of {_loc} to 1.5
+				teleport victim to {_loc}
+			if {_locnum} is 3:
+				set {_loc} to location at -12997.8, 67, 2413.5 in world world
+				set yaw of {_loc} to -89.6
+				set pitch of {_loc} to 1.2
+				teleport victim to {_loc}
+			if {_locnum} is 4:
+				set {_loc} to location at -12958.5, 67, 2454.36 in world world
+				set yaw of {_loc} to 179.76
+				set pitch of {_loc} to 1.8
+				teleport victim to {_loc}
+			make console execute "effect clear %victim%"
+
+on region exit:
+	if event-region is "koth":
+		clear player's inventory
+		clear player's armor
+		set {_locnum} to random integer between 1 and 4
+
+		if {_locnum} is 1:
+			set {_loc} to location at -12917.5, 67, 2414.5 in world world
+			set yaw of {_loc} to 89.3
+			set pitch of {_loc} to -1.05
+			teleport player to {_loc}
+		if {_locnum} is 2:
+			set {_loc} to location at -12957.94, 67, 2455.26 in world world
+			set yaw of {_loc} to 179.16
+			set pitch of {_loc} to 1.5
+			teleport player to {_loc}
+		if {_locnum} is 3:
+			set {_loc} to location at -12997.8, 67, 2413.5 in world world
+			set yaw of {_loc} to -89.6
+			set pitch of {_loc} to 1.2
+			teleport player to {_loc}
+		if {_locnum} is 4:
+			set {_loc} to location at -12958.5, 67, 2454.36 in world world
+			set yaw of {_loc} to 179.76
+			set pitch of {_loc} to 1.8
+			teleport player to {_loc}
+
+		set {_sword} to wooden sword with name "&dDagger"
+		enchant {_sword} with sharpness 2
+		set slot 0 of player's inventory to {_sword}
+
+		set {_helmet} to leather helmet
+		dye {_helmet} white
+		set {_chestplate} to leather chestplate
+		dye {_chestplate} white
+		set {_leggings} to leather leggings
+		dye {_leggings} white
+		set {_boots} to leather boots
+		dye {_boots} white
+		set player's helmet to {_helmet}
+		set player's chestplate to {_chestplate}
+		set player's leggings to {_leggings}
+		set player's boots to {_boots}
+		if {king} is event-player:
+			set {_f1} to structure with id "frame1"
+			place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			remove bossbar "control"
+			broadcast "&4%player%&c has been dethroned!"
+			clear {king}
+
+command /regioncheck:
+	trigger:
+		send region at player to player
+
+command /removebos:
+	trigger:
+		remove bossbar "control"
+
+
+
+
+
+on region enter:
+	if event-region is "hill":
+		if {king} is not set:
+			if {claiming} is false:
+				create bossbar titled "&2%player% &ais taking control of the hill!" and id "koth" for all players with progress 0 with colors green
+
+				set {_f1} to structure with id "frame1"
+				set {_f2} to structure with id "frame2"
+				set {_f3} to structure with id "frame3"
+				set {_f4} to structure with id "frame4"
+				set {_f5} to structure with id "frame5"
+				set {_f6} to structure with id "frame6"
+				set {_contender} to player
+				wait 3 ticks
+				set {_seconds} to 5
+				set {claiming} to true
+				set {_value} to value of bossbar "koth"
+
+				loop 5 times:
+					wait 1 second
+					add 20 to {_value}
+					set bossbar "koth" value to {_value}
+					if regions at player does not contain event-region:
+						place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+						remove bossbar "koth"
+						set {claiming} to false
+						stop
+					if loop-value is 1:
+						place structure {_f2} at location(-12961.5, 99.5, 2410.5)
+						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+					if loop-value is 2:
+						place structure {_f3} at location(-12961.5, 99.5, 2410.5)
+						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+					if loop-value is 3:
+						place structure {_f4} at location(-12961.5, 99.5, 2410.5)
+						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+					if loop-value is 4:
+						place structure {_f5} at location(-12961.5, 99.5, 2410.5)
+						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
+
+					if loop-value is 5:
+						place structure {_f6} at location(-12961.5, 99.5, 2410.5)
+						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+						play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
+
+					remove 1 from {_seconds}
+				set {king} to {_contender}
+				set {claiming} to false
+				wait 1 second
+				play sound "minecraft:block.note_block.bell" with volume 1 and pitch 2 to all players
+
+				create bossbar titled "<#FF0000>K<#FF1000>i<#FF3000>n<#FF4C00>g <#FF7F00>o<#FF9900>f <#FCC00>t<#FFE500>h<#FFFF00>e <#AAFF00>H<#80FF00>i<#55FF00>l<#2BFF00>l&e: &2%player%" and id "control" for all players with progress 100 with colors green
+				remove bossbar "koth"
+
+				set {_helmet} to leather helmet
+				dye {_helmet} black
+				set {_chestplate} to leather chestplate
+				dye {_chestplate} black
+				set {_leggings} to leather leggings
+				dye {_leggings} black
+				set {_boots} to leather boots
+				dye {_boots} black
+
+				set player's helmet to {_helmet}
+				set player's chestplate to {_chestplate}
+				set player's leggings to {_leggings}
+				set player's boots to {_boots}
+
+				if regions at {king} does not contain event-region:
+					set {king} to {_contender}
+					send "test"
+
+			else if {claiming} is true:
+				send actionbar "&eSomeone is already claiming the hill!"
+
+		else if {king} is set:
+			if {king} is not player:
+				send actionbar "&eYou must be on the throne &6King&f!"
+	if event-region is "koth":
+		clear player's inventory
+		clear player's armor
+
+		set {_sword} to wooden sword with name "&dDagger"
+		enchant {_sword} with sharpness 2
+		set slot 0 of player's inventory to {_sword}
+		set {_rod} to lightning rod with name "&dKnockback Rod"
+		set {_cookie} to cookie with name "&eLaunch Cookie"
+		set slot 2 of player's inventory to {_cookie}
+		enchant {_rod} with knockback 3
+		set slot 1 of player's inventory to {_rod}
+
+		set {_helmet} to leather helmet
+		dye {_helmet} white
+		set {_chestplate} to leather chestplate
+		dye {_chestplate} white
+		set {_leggings} to leather leggings
+		dye {_leggings} white
+		set {_boots} to leather boots
+		dye {_boots} white
+		set player's helmet to {_helmet}
+		set player's chestplate to {_chestplate}
+		set player's leggings to {_leggings}
+		set player's boots to {_boots}
+
+		send "&aYou completed the parkour! Take control of the hill!" to player
+		play sound "minecraft:block.note_block.pling" to player
+
+		set {invuln.%player%} to true
+		wait 2 seconds
+		set {invuln.%player%} to false
+
+	if event-region is "lava1":
+		set {_lava1} to location at -12955.5, 79.5, 2403.5 in world world
+		set yaw of {_lava1} to -179.7
+		set pitch of {_lava1} to 1.5
+		teleport event-player to {_lava1}
+		play sound "block.note_block.bass" with volume 1 to player
+
+	if event-region is "lava2":
+		set {_lava2} to location at -12947.5, 78, 2414.5 in world world
+		set yaw of {_lava2} to -89.1
+		set pitch of {_lava2} to 2.4
+		teleport event-player to {_lava2}
+		play sound "block.note_block.bass" with volume 1 to player
+
+	if event-region is "lava3":
+		set {_lava3} to location at -12955.5, 78, 2423.5 in world world
+		set yaw of {_lava3} to 0.75
+		set pitch of {_lava3} to 1.65
+		teleport event-player to {_lava3}
+		play sound "block.note_block.bass" with volume 1 to player
+
+	if event-region is "lava4":
+		set {_lava4} to location at -12965.5, 78, 2413.5 in world world
+		set yaw of {_lava4} to 90.6
+		set pitch of {_lava4} to 1.05
+		teleport event-player to {_lava4}
+		play sound "block.note_block.bass" with volume 1 to player
+
+
+
+
+	if event-region is "temple":
+		set {_locnum} to random integer between 1 and 4
+		make console execute "/effect clear %player%"
+
+		if player's y-coordinate > 75:
+			wait 10 ticks
+			if {_locnum} is 1:
+				set {_loc} to location at -12917.5, 67, 2414.5 in world world
+				set yaw of {_loc} to 89.3
+				set pitch of {_loc} to -1.05
+				teleport player to {_loc}
+			if {_locnum} is 2:
+				set {_loc} to location at -12957.94, 67, 2455.26 in world world
+				set yaw of {_loc} to 179.16
+				set pitch of {_loc} to 1.5
+				teleport player to {_loc}
+			if {_locnum} is 3:
+				set {_loc} to location at -12997.8, 67, 2413.5 in world world
+				set yaw of {_loc} to -89.6
+				set pitch of {_loc} to 1.2
+				teleport player to {_loc}
+			if {_locnum} is 4:
+				set {_loc} to location at -12958.5, 67, 2454.36 in world world
+				set yaw of {_loc} to 179.76
+				set pitch of {_loc} to 1.8
+				teleport player to {_loc}
+		close player's inventory
+		if {koth} is false:
+			if player's horizontal facing is north:
+				push player south at speed 4
+			else if player's horizontal facing is east:
+				push player west at speed 4
+			else if player's horizontal facing is south:
+				push player north at speed 4
+			else if player's horizontal facing is west:
+				push player east at speed 4
+			send actionbar "&cK.O.T.H. isn't currently active!"
+
+		else if {koth} is true:
+			add player to {kothinventory::*}
+			loop 36 times:
+				set yaml value "inventories.%player%.slot-%loop-number%" from "koth" to slot (loop-number - 1) of player's inventory
+			set yaml value "inventories.%player%.helmet" from "koth" to player's helmet
+			set yaml value "inventories.%player%.chestplate" from "koth" to player's chestplate
+			set yaml value "inventories.%player%.leggings" from "koth" to player's leggings
+			set yaml value "inventories.%player%.boots" from "koth" to player's boots
+			set yaml value "inventories.%player%.offhand" from "koth" to player's off hand item
+
+			save yaml "koth"
+
+			clear player's inventory
+			clear player's armor
+			set player's off hand item to air
+
+			set {_sword} to wooden sword with name "&dDagger"
+			enchant {_sword} with sharpness 2
+			set slot 0 of player's inventory to {_sword}
+			set {_helmet} to leather helmet
+			dye {_helmet} white
+			set {_chestplate} to leather chestplate
+			dye {_chestplate} white
+			set {_leggings} to leather leggings
+			dye {_leggings} white
+			set {_boots} to leather boots
+			dye {_boots} white
+			set player's helmet to {_helmet}
+			set player's chestplate to {_chestplate}
+			set player's leggings to {_leggings}
+			set player's boots to {_boots}
+
+
+
+on region exit:
+	#if event-region is "hill":
+	#	if {king} is event-player:
+		#	set {_f1} to structure with id "frame1"
+			#place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			#remove bossbar "control"
+			#broadcast "&2%{king}% &alost control of the hill!"
+			#clear {king}
+
+	if event-region is "temple":
+		remove player from {kothinventory::*}
+		clear player's inventory
+		clear player's armor
+		set player's off hand item to air
+
+		loop 36 times:
+			if yaml value "inventories.%player%.slot-%loop-number%" from "koth" exists:
+				set slot (loop-number - 1) of player's inventory to yaml value "inventories.%player%.slot-%loop-number%" from "koth"
+
+		if yaml value "inventories.%player%.helmet" from "koth" exists:
+			set player's helmet to yaml value "inventories.%player%.helmet" from "koth"
+		if yaml value "inventories.%player%.chestplate" from "koth" exists:
+			set player's chestplate to yaml value "inventories.%player%.chestplate" from "koth"
+		if yaml value "inventories.%player%.leggings" from "koth" exists:
+			set player's leggings to yaml value "inventories.%player%.leggings" from "koth"
+		if yaml value "inventories.%player%.boots" from "koth" exists:
+			set player's boots to yaml value "inventories.%player%.boots" from "koth"
+		if yaml value "inventories.%player%.offhand" from "koth" exists:
+			set player's off hand item to yaml value "inventories.%player%.offhand" from "koth"
+
+on inventory click:
+	if {kothinventory::*} contains player:
+		cancel event
+
+
+
+on right click:
+	if player's tool is a cookie with name "&eLaunch Cookie":
+		if {launch.%player%} is not set:
+			set {launch.%player%} to true
+			set {launch.%player%.seconds} to 5
+			push player up at speed 1
+			push player forward at speed 1
+			play sound "entity.ghast.shoot" with volume 1 at location of event-player to all players
+			loop 5 times:
+				wait 1 second
+				remove 1 from {launch.%player%.seconds}
+			clear {launch.%player%}
+		else if {launch.%player%} is true:
+			if {launch.%player%.seconds} is 1:
+				send actionbar "&cYou must wait 1 more second!"
+			else:
+				send actionbar "&cYou must wait %{launch.%player%.seconds}% more seconds!"
+
+on right click with red mushroom:
+	if name of player's tool is "&aSpeed Mushroom &7(1 Use)":
+		cancel event
+		play sound "minecraft:entity.player.burp" at event-player's location to all players
+		send "&2Speed Boost&a activated!" to player
+		apply speed of tier 2 to player for 15 seconds
+		remove 1 red mushroom named "&aSpeed Mushroom &7(1 Use)" from player's inventory
+
+on right click with fermented spider eye:
+	if name of player's tool is "&bInvisibility Eye &7(1 Use)":
+		if {invisibility.%player%} is not set:
+			cancel event
+			play sound "minecraft:block.enchantment_table.use" at event-player's location to all players
+			send "&2Invisibility&a activated!" to event-player
+			remove 1 fermented spider eye named "&bInvisibility Eye &7(1 Use)" from player's inventory
+			apply invisibility to player for 15 seconds
+			set {_helmet} to player's helmet
+			set {_chestplate} to player's chestplate
+			set {_leggings} to player's leggings
+			set {_boots} to player's boots
+			set player's helmet to air
+			set player's chestplate to air
+			set player's leggings to air
+			set player's boots to air
+			set {invisibility.%player%} to true
+			wait 15 seconds
+			set player's helmet to {_helmet}
+			set player's chestplate to {_chestplate}
+			set player's leggings to {_leggings}
+			set player's boots to {_boots}
+			clear {invisibility.%player%}
+		else:
+			cancel event
+			send actionbar "&cYou can only use 1 &bInvisibility Eye&c at a time!" to event-player
+
+on right click with mushroom stew:
+	if name of player's tool is "&6Full Heal &7(1 Use)":
+		cancel event
+		play sound "minecraft:entity.zombie.converted_to_drowned" at event-player's location to all players
+		remove 1 mushroom stew named "&6Full Heal &7(1 Use)" from player's inventory
+		set player's health to 20
+		set player's food level to 10
+
+command /joinkoth:
+	cooldown: 5 seconds
+	trigger:
+		if {koth} is true:
+			if {kothinventory::*} does not contain player:
+				set {_locc} to location(-13016.33, 69, 2414.47)
+				set yaw of {_locc} to -89.94
+				set pitch of {_locc} to 4.5
+				teleport player to {_locc}
+				play sound "minecraft:block.bell.use" with pitch 0.1 to player
+				play sound "minecraft:block.bell.resonate" to player
+				apply blindness to player for 3 seconds
+		else if {koth} is false:
+			send "&cKOTH isn't active right now!"
+
+command /koth <text>:
+	trigger:
+		if arg-1 is "silentstart":
+			make console execute "/rg flag temple entry -w world allow"
+			clear {king}
+			set {koth} to true
+		if arg-1 is "start":
+			make console execute "/rg flag temple entry -w world allow"
+			clear {king}
+			set {koth} to true
+			play sound "minecraft:block.beacon.power_select" with volume 1 to all players
+			broadcast ""
+			broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#FF0000>&oK<#FF1900>&oi<#FF3300>&on<#FF4C00>&og <#FF7F00>&oo<#FF9900>&of <#FFCC00>&ot<#FFE500>&oh<#FFFF00>&oe <#99FF00>&oH<#66FF00>&oi<#33FF00>&ol<#00FF00>&ol <#009966>&oE<#006699>&ov<#0033CC>&oe<#0000FF>&on<#0F00E6>&ot <#2D00B4>&oS<#3C009B>&ot<#4B0082>&oa<#5A0092>&or<#6800A2>&ot<#7700B3>&oi<#8500C3>&on<#9400D3>&og"
+			send formatted "<cmd:/joinkoth><#62D3FF>&o(<#6AD5FF>&oC<#73D8FF>&ol<#7BDAFF>&oi<#83DCFF>&oc<#8CDFFF>&ok <#9CE3FF>&ot<#A4E5FF>&oo <#B5EAFF>&oT<#BDECFF>&oe<#C6EFFF>&ol<#CEF1FF>&oe<#CEF1FF>&op<#CEF1FF>&oo<#CEF1FF>&or<#CEF1FF>&ot<#CEF1FF>&o)<r>" to all players
+			broadcast ""
+
+
+		if arg-1 is "clear":
+			clear {king}
+			set {_f1} to structure with id "frame1"
+			remove bossbar "control"
+			send "&eCleared existing King!"
+			place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
+			play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+			play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
+
+
+		if arg-1 is "reload":
+			make console execute "/sk reload koth.sk"
+
+		if arg-1 is "current":
+			if {king} is set:
+				send "&6%{king}% &eis the current King!"
+			else:
+				send "&6There is no King currently!"
+
+		if arg-1 is "stop":
+			loop all players:
+				if regions at loop-player contain "temple":
+					set {_locc} to location(-13016.33, 69, 2414.47)
+					set yaw of {_locc} to -89.94
+					set pitch of {_locc} to 4.5
+					teleport loop-player to {_locc}
+					play sound "minecraft:block.beacon.deactivate" to loop-player
+					apply blindness to player for 2 seconds
+			set {_f1} to structure with id "frame1"
+			remove bossbar "control"
+			place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
+			play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+			play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
+			make console execute "/rg flag temple entry -w world deny"
+			set {koth} to false
+			broadcast "&2%player% &ahas ended the event!"
+			clear {king}
+			wait 1 second
+			clear {kothinventories::*}
+			send "&2KOTH &aClean-up successful!"
+
