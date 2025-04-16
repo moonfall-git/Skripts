@@ -263,7 +263,6 @@ on region enter:
 						place structure {f5} at location(-12961.5, 99.5, 2410.5)
 						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
-						play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
 
 					if loop-value is 5:
 						place structure {f6} at location(-12961.5, 99.5, 2410.5)
@@ -439,6 +438,25 @@ on region enter:
 			set player's boots to {_boots}
 
 
+command /f1:
+	trigger:
+		place structure {f1} at player's location
+
+command /f2:
+	trigger:
+		place structure {f2} at player's location
+command /f3:
+	trigger:
+		place structure {f3} at player's location
+command /f4:
+	trigger:
+		place structure {f4} at player's location
+command /f5:
+	trigger:
+		place structure {f5} at player's location
+command /f6:
+	trigger:
+		place structure {f6} at player's location
 
 on region exit:
 	#if event-region is "hill":
@@ -580,7 +598,7 @@ command /koth <text>:
 			play sound "minecraft:block.beacon.power_select" with volume 1 to all players
 			broadcast ""
 			broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#FF0000>&oK<#FF1900>&oi<#FF3300>&on<#FF4C00>&og <#FF7F00>&oo<#FF9900>&of <#FFCC00>&ot<#FFE500>&oh<#FFFF00>&oe <#99FF00>&oH<#66FF00>&oi<#33FF00>&ol<#00FF00>&ol <#009966>&oE<#006699>&ov<#0033CC>&oe<#0000FF>&on<#0F00E6>&ot <#2D00B4>&oS<#3C009B>&ot<#4B0082>&oa<#5A0092>&or<#6800A2>&ot<#7700B3>&oi<#8500C3>&on<#9400D3>&og"
-			send formatted "<cmd:/joinkoth><#62D3FF>&o(<#6AD5FF>&oC<#73D8FF>&ol<#7BDAFF>&oi<#83DCFF>&oc<#8CDFFF>&ok <#9CE3FF>&ot<#A4E5FF>&oo <#B5EAFF>&oT<#BDECFF>&oe<#C6EFFF>&ol<#CEF1FF>&oe<#CEF1FF>&op<#CEF1FF>&oo<#CEF1FF>&or<#CEF1FF>&ot<#CEF1FF>&o)<r>" to all players
+			send formatted "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <cmd:/joinkoth><#62D3FF>&o(<#6AD5FF>&oC<#73D8FF>&ol<#7BDAFF>&oi<#83DCFF>&oc<#8CDFFF>&ok <#9CE3FF>&ot<#A4E5FF>&oo <#B5EAFF>&oT<#BDECFF>&oe<#C6EFFF>&ol<#CEF1FF>&oe<#CEF1FF>&op<#CEF1FF>&oo<#CEF1FF>&or<#CEF1FF>&ot<#CEF1FF>&o)<r>" to all players
 			broadcast ""
 
 
