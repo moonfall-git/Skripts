@@ -1,0 +1,23 @@
+on script load:
+	if yaml "koth" is not loaded:
+		load yaml "plugins/Skript/scripts/koth.yml" as "koth"
+	set {claiming} to false
+
+every 5 minutes:
+	if {koth} is true:
+		set {_droploc} to location(-12957.91, 107, 2414.15)
+		drop 1 light gray candle named "&e&l" with lore "&7Use to increase your odds at the next Vote Party!" at {_droploc}
+		broadcast "&aA &6&lLegendary&a item has been dropped on the hill!"
+
+every 1 minute:
+	if {king} is set:
+		set {_dropnum} to random integer between 1 and 4
+		if {_droprandomloc} is 1:
+			set {_droploc} to location(-12952.95, 107, 2408.76)
+		if {_droprandomloc} is 2:
+			set {_droploc} to location(-12952.92, 107, 2419.06)
+		if {_droprandomloc} is 3:
+			set {_droploc} to location(-12963.1, 107, 2419.03)
+		if {_droprandomloc} is 4:
+			set {_droploc} to location(-12962.98, 107, 2408.73)
+			
