@@ -84,15 +84,20 @@ on pick up:
 		set event-player's off hand item to {_item}
 		play sound "minecraft:item.armor.equip_wolf" to all players at event-location
 	if event-item is a mushroom stew named "&6Full Heal &7(1 Use)":
-		if amount of event-item in player's inventory > 2:
+		if amount of event-item in player's inventory >= 2:
 			cancel event
 			delete event-dropped item
-			send "&cYou can only carry 2 &4Full Heals&c!"
-		else:
+			send "&cYou can only carry 2 &6Full Heal&c's!" to event-player
+	if event-item is a red mushroom named "&aSpeed Mushroom &7(1 Use)":
+		if amount of event-item in player's inventory >= 2:
 			cancel event
 			delete event-dropped item
-			give player 1 mushroom stew named "&6Full Heal &7(1 Use)" with lore "&7Right Click to restore all health and hunger" at {_droploc}
-
+			send "&cYou can only carry 2 &aSpeed Mushroom&c's!" to event-player
+	if event-item is a fermented spider eye named "&bInvisibility Eye &7(1 Use)":
+		if amount of event-item in player's inventory >= 2:
+			cancel event
+			delete event-dropped item
+			send "&cYou can only carry 2 &bInvisibility Eye&c's!" to event-player
 
 command /totemtotem:
 	trigger:
