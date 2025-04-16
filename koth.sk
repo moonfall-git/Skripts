@@ -2,6 +2,12 @@ on script load:
 	if yaml "koth" is not loaded:
 		load yaml "plugins/Skript/scripts/koth.yml" as "koth"
 	set {claiming} to false
+	set {f1} to structure with id "frame1"
+	set {f2} to structure with id "frame2"
+	set {f3} to structure with id "frame3"
+	set {f4} to structure with id "frame4"
+	set {f5} to structure with id "frame5"
+	set {f6} to structure with id "frame6"
 
 every 5 minutes:
 	if {koth} is true:
@@ -48,7 +54,7 @@ every 30 seconds:
 			play sound "minecraft:entity.item.pickup" at {_droploc} to all players
 
 on tab complete of "/koth":
-	set tab completions for position 1 to "start", "clear", "silentstart", "current", "reload", and "stop"
+	set tab completions for position 1 to "start", "clear", "silentstart", "current", "reload", "build", and "stop"
 
 on command:
 	if {kothinventory::*} contains player:
@@ -78,26 +84,34 @@ on swap hand items:
 
 on pick up:
 	if event-item is a totem of undying named "&cAnti-Knockback &7(1 Use)":
-		cancel event
-		delete event-dropped item
-		set {_item} to a totem of undying named "&cAnti-Knockback &7(1 Use)"
-		set event-player's off hand item to {_item}
-		play sound "minecraft:item.armor.equip_wolf" to all players at event-location
+		if player's off hand item is air:
+			cancel event
+			delete event-dropped item
+			set {_item} to a totem of undying named "&cAnti-Knockback &7(1 Use)"
+			set event-player's off hand item to {_item}
+			play sound "minecraft:item.armor.equip_wolf" to all players at event-location
+		else:
+			cancel event
+			delete event-dropped item
+			send "&cYou can only carry 1 &4Anti-Knockback&c!" to event-player
 	if event-item is a mushroom stew named "&6Full Heal &7(1 Use)":
 		if amount of event-item in player's inventory >= 2:
 			cancel event
 			delete event-dropped item
 			send "&cYou can only carry 2 &6Full Heal&c's!" to event-player
+			play sound "minecraft:entity.silverfish.hurt" to event-player
 	if event-item is a red mushroom named "&aSpeed Mushroom &7(1 Use)":
 		if amount of event-item in player's inventory >= 2:
 			cancel event
 			delete event-dropped item
 			send "&cYou can only carry 2 &aSpeed Mushroom&c's!" to event-player
+			play sound "minecraft:entity.silverfish.hurt" to event-player
 	if event-item is a fermented spider eye named "&bInvisibility Eye &7(1 Use)":
 		if amount of event-item in player's inventory >= 2:
 			cancel event
 			delete event-dropped item
 			send "&cYou can only carry 2 &bInvisibility Eye&c's!" to event-player
+			play sound "minecraft:entity.silverfish.hurt" to event-player
 
 command /totemtotem:
 	trigger:
@@ -195,8 +209,7 @@ on region exit:
 		set player's leggings to {_leggings}
 		set player's boots to {_boots}
 		if {king} is event-player:
-			set {_f1} to structure with id "frame1"
-			place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			place structure {f1} at location(-12961.5, 99.5, 2410.5)
 			remove bossbar "control"
 			broadcast "&4%player%&c has been dethroned!"
 			clear {king}
@@ -219,12 +232,6 @@ on region enter:
 			if {claiming} is false:
 				create bossbar titled "&2%player% &ais taking control of the hill!" and id "koth" for all players with progress 0 with colors green
 
-				set {_f1} to structure with id "frame1"
-				set {_f2} to structure with id "frame2"
-				set {_f3} to structure with id "frame3"
-				set {_f4} to structure with id "frame4"
-				set {_f5} to structure with id "frame5"
-				set {_f6} to structure with id "frame6"
 				set {_contender} to player
 				wait 3 ticks
 				set {_seconds} to 5
@@ -236,30 +243,30 @@ on region enter:
 					add 20 to {_value}
 					set bossbar "koth" value to {_value}
 					if regions at player does not contain event-region:
-						place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+						place structure {f1} at location(-12961.5, 99.5, 2410.5)
 						remove bossbar "koth"
 						set {claiming} to false
 						stop
 					if loop-value is 1:
-						place structure {_f2} at location(-12961.5, 99.5, 2410.5)
+						place structure {f2} at location(-12961.5, 99.5, 2410.5)
 						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 					if loop-value is 2:
-						place structure {_f3} at location(-12961.5, 99.5, 2410.5)
+						place structure {f3} at location(-12961.5, 99.5, 2410.5)
 						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 					if loop-value is 3:
-						place structure {_f4} at location(-12961.5, 99.5, 2410.5)
+						place structure {f4} at location(-12961.5, 99.5, 2410.5)
 						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 					if loop-value is 4:
-						place structure {_f5} at location(-12961.5, 99.5, 2410.5)
+						place structure {f5} at location(-12961.5, 99.5, 2410.5)
 						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
 
 					if loop-value is 5:
-						place structure {_f6} at location(-12961.5, 99.5, 2410.5)
+						place structure {f6} at location(-12961.5, 99.5, 2410.5)
 						play sound "minecraft:block.stone.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 						play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
@@ -547,6 +554,21 @@ command /joinkoth:
 
 command /koth <text>:
 	trigger:
+		if arg-1 is "build":
+			if {kothbuildtoggle} is not set:
+				set {kothbuildtoggle} to true
+				make console execute "/rg flag temple block-break -w world allow"
+				make console execute "/rg flag temple block-place -w world allow"
+				make console execute "/rg flag templenodrop block-break -w world allow"
+				make console execute "/rg flag templenodrop block-place -w world allow"
+				send "&2Enabled&a building inside the Temple."
+			else:
+				clear {kothbuildtoggle}
+				make console execute "/rg flag temple block-break -w world deny"
+				make console execute "/rg flag temple block-place -w world deny"
+				make console execute "/rg flag templenodrop block-break -w world deny"
+				make console execute "/rg flag templenodrop block-place -w world deny"
+				send "&cDisabled&a building inside the Temple."
 		if arg-1 is "silentstart":
 			make console execute "/rg flag temple entry -w world allow"
 			clear {king}
@@ -564,10 +586,9 @@ command /koth <text>:
 
 		if arg-1 is "clear":
 			clear {king}
-			set {_f1} to structure with id "frame1"
 			remove bossbar "control"
 			send "&eCleared existing King!"
-			place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			place structure {f1} at location(-12961.5, 99.5, 2410.5)
 			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
 			play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 			play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
@@ -591,9 +612,8 @@ command /koth <text>:
 					teleport loop-player to {_locc}
 					play sound "minecraft:block.beacon.deactivate" to loop-player
 					apply blindness to player for 2 seconds
-			set {_f1} to structure with id "frame1"
 			remove bossbar "control"
-			place structure {_f1} at location(-12961.5, 99.5, 2410.5)
+			place structure {f1} at location(-12961.5, 99.5, 2410.5)
 			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
 			play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
 			play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
