@@ -53,7 +53,7 @@ on tab complete of "/koth":
 on command:
 	if {kothinventory::*} contains player:
 		if name of player is not "Mebis":
-			if command is not "l" or "g" or "mod" or "msg" or "r" or "reply" or "staff:
+			if command is not "l" or "g" or "mod" or "msg" or "r" or "reply" or "staff":
 				cancel event
 				send "&cYou can't use commands inside the Temple!"
 
