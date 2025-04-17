@@ -82,6 +82,23 @@ on swap hand items:
 	if {kothinventory::*} contains player:
 		cancel event
 
+command /fixinv <player>:
+	trigger:
+		loop 36 times:
+			if yaml value "inventories.%arg-1%.slot-%loop-number%" from "koth" exists:
+				set slot (loop-number - 1) of arg-1's inventory to yaml value "inventories.%arg-1%.slot-%loop-number%" from "koth"
+
+		if yaml value "inventories.%arg-1%.helmet" from "koth" exists:
+			set arg-1's helmet to yaml value "inventories.%arg-1%.helmet" from "koth"
+		if yaml value "inventories.%arg-1%.chestplate" from "koth" exists:
+			set arg-1's chestplate to yaml value "inventories.%arg-1%.chestplate" from "koth"
+		if yaml value "inventories.%arg-1%.leggings" from "koth" exists:
+			set arg-1's leggings to yaml value "inventories.%arg-1%.leggings" from "koth"
+		if yaml value "inventories.%arg-1%.boots" from "koth" exists:
+			set arg-1's boots to yaml value "inventories.%arg-1%.boots" from "koth"
+		if yaml value "inventories.%arg-1%.offhand" from "koth" exists:
+			set arg-1's off hand item to yaml value "inventories.%arg-1%.offhand" from "koth"
+
 on pick up:
 	if event-item is a totem of undying named "&cAnti-Knockback &7(1 Use)":
 		if player's off hand item is air:
@@ -227,6 +244,8 @@ command /removebos:
 
 
 on region enter:
+	if event-region is "maze":
+		apply speed of tier 2 to player for 999 days
 	if event-region is "hill":
 		if {king} is not set:
 			if {claiming} is false:
@@ -369,7 +388,7 @@ on region enter:
 
 	if event-region is "temple":
 		set {_locnum} to random integer between 1 and 4
-		make console execute "/effect clear %player%"
+		make console execute "effect clear %player%"
 
 		if player's y-coordinate > 75:
 			wait 10 ticks
@@ -394,18 +413,18 @@ on region enter:
 				set pitch of {_loc} to 1.8
 				teleport player to {_loc}
 		close player's inventory
-		if {koth} is false:
-			if player's horizontal facing is north:
-				push player south at speed 4
-			else if player's horizontal facing is east:
-				push player west at speed 4
-			else if player's horizontal facing is south:
-				push player north at speed 4
-			else if player's horizontal facing is west:
-				push player east at speed 4
-			send actionbar "&cK.O.T.H. isn't currently active!"
+		#if {koth} is false:
+		#	if player's horizontal facing is north:
+		#		push player south at speed 4
+		#	else if player's horizontal facing is east:
+		#		push player west at speed 4
+		#	else if player's horizontal facing is south:
+		#		push player north at speed 4
+		#	else if player's horizontal facing is west:
+		#		push player east at speed 4
+		#	send actionbar "&cK.O.T.H. isn't currently active!"
 
-		else if {koth} is true:
+		if {koth} is true:
 			add player to {kothinventory::*}
 			loop 36 times:
 				set yaml value "inventories.%player%.slot-%loop-number%" from "koth" to slot (loop-number - 1) of player's inventory
@@ -459,6 +478,8 @@ command /f6:
 		place structure {f6} at player's location
 
 on region exit:
+	if event-region is "maze":
+		clear all the potion effects of event-player
 	#if event-region is "hill":
 	#	if {king} is event-player:
 		#	set {_f1} to structure with id "frame1"
@@ -511,6 +532,12 @@ on right click:
 				send actionbar "&cYou must wait 1 more second!"
 			else:
 				send actionbar "&cYou must wait %{launch.%player%.seconds}% more seconds!"
+
+command /addinv:
+	trigger:
+		loop all players:
+			if regions at loop-player contains "temple":
+				add loop-player to {kothinventories::*}
 
 on right click with red mushroom:
 	if name of player's tool is "&aSpeed Mushroom &7(1 Use)":
