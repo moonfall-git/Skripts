@@ -82,11 +82,6 @@ on inventory click:
 
 
 
-#on join:
-#	if player has permission "jl.custom1":
-#	if player has permission "jl.custom2":
-#	if player has permission "jl.custom3":
-#	broadcast "&b+ %player%"
-
-#on leave:
-#	broadcast "&c- %player%"
+on join:
+	if {jl.custom1.%player%} is true:
+		broadcast "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!"
