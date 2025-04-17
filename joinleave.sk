@@ -1,0 +1,30 @@
+command /jl:
+	set {_menu} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ/ʟᴇᴀᴠᴇ ᴍᴇꜱꜱᴀɢᴇꜱ"
+	set slot 1 of {_menu} to a grass block
+	open {_menu} to player
+on inventory click:
+	if event-inventory is {_menu}:
+		cancel event
+		#if event-slot is 11:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#on join:
+#	if player has permission "jl.custom1":
+#	if player has permission "jl.custom2":
+#	if player has permission "jl.custom3":
+#	broadcast "&b+ %player%"
+
+#on leave:
+#	broadcast "&c- %player%"
