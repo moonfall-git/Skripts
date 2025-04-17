@@ -8,7 +8,7 @@ command /jl:
 
 		set {joinmessages.%uuid of player%} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ ᴍᴇꜱꜱᴀɢᴇꜱ"
 		set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, and 26 of {joinmessages.%uuid of player%} to black stained glass pane with name " "
-			
+
 
 		if player has permission "jl.custom1":
 			if {jl.custom1.%player%} is true:
@@ -30,7 +30,7 @@ on inventory click:
 
 			set {_menu} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ ᴍᴇꜱꜱᴀɢᴇꜱ"
 			set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, and 26 of {_menu} to black stained glass pane with name " "
-			
+
 
 			if player has permission "jl.custom1":
 				if {jl.custom1.%player%} is true:
@@ -55,7 +55,7 @@ on inventory click:
 				play sound "minecraft:block.amethyst_block.break" to player
 				set {_menu} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ ᴍᴇꜱꜱᴀɢᴇꜱ"
 				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, and 26 of {_menu} to black stained glass pane with name " "
-			
+
 
 				if player has permission "jl.custom1":
 					if {jl.custom1.%player%} is true:
