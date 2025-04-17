@@ -1,11 +1,14 @@
 command /jl:
-	set {_menu} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ/ʟᴇᴀᴠᴇ ᴍᴇꜱꜱᴀɢᴇꜱ"
-	set slot 1 of {_menu} to a grass block
-	open {_menu} to player
+	trigger:
+		set {_menu} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ/ʟᴇᴀᴠᴇ ᴍᴇꜱꜱᴀɢᴇꜱ"
+		set slot 1 of {_menu} to a grass block
+		open {_menu} to player
 on inventory click:
-	if event-inventory is {_menu}:
+	if name of event-inventory is "&0&lᴊᴏɪɴ/ʟᴇᴀᴠᴇ ᴍᴇꜱꜱᴀɢᴇꜱ":
 		cancel event
-		#if event-slot is 11:
+		if event-slot is 1:
+			send "asd" to event-player
+			close player's inventory
 
 
 
