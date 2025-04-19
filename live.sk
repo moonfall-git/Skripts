@@ -1,0 +1,20 @@
+command /live [<text>]:
+  trigger:
+    if player has permission "live":
+      if {live.%uuid of player%} is true:
+        clear {live.%uuid of player%}
+        clear {live.%uuid of player%.arg}
+        send "&bYou just went &coffline&b!"
+        make console execute "lp user %player% parent remove live"
+        play sound "minecraft:block.note_block.pling" to player
+      else:
+        set {live.%uuid of player%} to true
+        set {live.%uuid of player%.arg} to arg-1
+        send "&bYou just went live!"
+        make console execute "lp user %player% parent add live"
+        play sound "minecraft:block.note_block.pling" to player
+
+every 10 minutes:
+  loop all players:
+    if {live.%uuid of loop-player%} is true:
+      make console execute command "mcb &e&l%loop-player%&7 is LIVE on Twitch! &d&n%{live.%uuid of loop-player%.arg}%"
