@@ -11,14 +11,17 @@ command /jl:
 
 
 		if player has permission "jl.custom1":
-			if {jl.custom1.%player%} is true:
-				set {jmlore.%uuid of player%::*} to "&a&l✔ &aᴜɴʟᴏᴄᴋᴇᴅ", " ", and "&f&lꜱᴇʟᴇᴄᴛᴇᴅ"
-				set slot 11 of {joinmessages.%uuid of player%} to nether star with name "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!" with lore {jmlore.%uuid of player%::*}
+			if {jl.custom1.%uuid of player%} is true:
+				set {custom1.%uuid of player%::*} to "&a&l✔ &aᴜɴʟᴏᴄᴋᴇᴅ", " ", and "&f&lꜱᴇʟᴇᴄᴛᴇᴅ"
+				set slot 11 of {joinmessages.%uuid of player%} to nether star with name "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!" with lore {custom1.%uuid of player%::*}
 			else:
-				set {jmlore.%uuid of player%::*} to "&a&l✔ &aᴜɴʟᴏᴄᴋᴇᴅ", " ", and "&fʟᴇꜰᴛ ᴄʟɪᴄᴋ&7 to select!"
-				set slot 11 of {joinmessages.%uuid of player%} to name tag with name "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!" with lore {_lore::*}
+				set {custom1.%uuid of player%::*} to "&a&l✔ &aᴜɴʟᴏᴄᴋᴇᴅ", " ", and "&fʟᴇꜰᴛ ᴄʟɪᴄᴋ&7 to select!"
+				set slot 11 of {joinmessages.%uuid of player%} to name tag with name "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!" with lore {custom1.%uuid of player%::*}
 		else:
 			set slot 11 of {joinmessages.%uuid of player%} to dead brain coral block
+		if player has permission "jl.custom2":
+			if {jl.custom2.%uuid of player%} is true:
+
 
 
 
@@ -27,24 +30,7 @@ on inventory click:
 		cancel event
 		if event-slot is 12:
 
-
-			set {_menu} to a new chest inventory with 3 rows named "&0&lᴊᴏɪɴ ᴍᴇꜱꜱᴀɢᴇꜱ"
-			set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, and 26 of {_menu} to black stained glass pane with name " "
-
-
-			if player has permission "jl.custom1":
-				if {jl.custom1.%player%} is true:
-					set {_lore::*} to "&a&l✔ &aᴜɴʟᴏᴄᴋᴇᴅ", " ", and "&f&lꜱᴇʟᴇᴄᴛᴇᴅ"
-					set slot 11 of {_menu} to nether star with name "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!" with lore {_lore::*}
-				else:
-					set {_lore::*} to "&a&l✔ &aᴜɴʟᴏᴄᴋᴇᴅ", " ", and "&fʟᴇꜰᴛ ᴄʟɪᴄᴋ&7 to select!"
-					set slot 11 of {_menu} to name tag with name "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!" with lore {_lore::*}
-			else:
-				set slot 11 of {_menu} to dead brain coral block
-
-
-
-			open {_menu} to player
+			open {joinmessages.%uuid of player%} to player
 			play sound "minecraft:ui.stonecutter.select_recipe" to player
 
 	if name of event-inventory is "&0&lᴊᴏɪɴ ᴍᴇꜱꜱᴀɢᴇꜱ":
@@ -85,3 +71,5 @@ on inventory click:
 on join:
 	if {jl.custom1.%player%} is true:
 		broadcast "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!"
+	if player has permission "penis.penis":
+		broadcast "<#F2C6DE>Hide yo' shoes, hide yo' wife, <#68B7F6>%player%<#F2C6DE> is back!"
