@@ -607,6 +607,7 @@ on join:
 			teleport player to {_locc}
 			play sound "minecraft:block.bell.use" with pitch 0.1 to player
 		else if {koth} is false:
+
 			set {_locc} to location(-13016.33, 69, 2414.47)
 			set yaw of {_locc} to -89.94
 			set pitch of {_locc} to 4.5
@@ -633,10 +634,10 @@ on join:
 
 on quit:
 	if {koth} is true:
-		if {king} is event-player
+		if {king} is event-player:
 			clear {king}
 			remove bossbar "control"
-			broadcast: "&4%event-player%&c has been dethroned!"
+			broadcast "&4%event-player%&c has been dethroned!"
 			place structure {f1} at location(-12961.5, 99.5, 2410.5)
 			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
 			play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
@@ -720,7 +721,7 @@ command /koth <text>:
 			set {koth} to false
 			broadcast "&2%player% &ahas ended the event!"
 			clear {king}
-			wait 1 second
 			loop {kothinventories::*}:
 				broadcast loop-value
+			wait 1 second
 			send "&2KOTH &aClean-up successful!"
