@@ -597,6 +597,59 @@ command /joinkoth:
 		else if {koth} is false:
 			send "&cKOTH isn't active right now!"
 
+
+on join:
+	if {kothinventories::*} contains player:
+		if {koth} is true:
+			set {_locc} to location(-13016.33, 69, 2414.47)
+			set yaw of {_locc} to -89.94
+			set pitch of {_locc} to 4.5
+			teleport player to {_locc}
+			play sound "minecraft:block.bell.use" with pitch 0.1 to player
+		else if {koth} is false:
+			set {_locc} to location(-13016.33, 69, 2414.47)
+			set yaw of {_locc} to -89.94
+			set pitch of {_locc} to 4.5
+			teleport player to {_locc}
+			remove player from {kothinventory::*}
+			clear player's inventory
+			clear player's armor
+			set player's off hand item to air
+
+			loop 36 times:
+				if yaml value "inventories.%player%.slot-%loop-number%" from "koth" exists:
+					set slot (loop-number - 1) of player's inventory to yaml value "inventories.%player%.slot-%loop-number%" from "koth"
+
+			if yaml value "inventories.%player%.helmet" from "koth" exists:
+				set player's helmet to yaml value "inventories.%player%.helmet" from "koth"
+			if yaml value "inventories.%player%.chestplate" from "koth" exists:
+				set player's chestplate to yaml value "inventories.%player%.chestplate" from "koth"
+			if yaml value "inventories.%player%.leggings" from "koth" exists:
+				set player's leggings to yaml value "inventories.%player%.leggings" from "koth"
+			if yaml value "inventories.%player%.boots" from "koth" exists:
+				set player's boots to yaml value "inventories.%player%.boots" from "koth"
+			if yaml value "inventories.%player%.offhand" from "koth" exists:
+				set player's off hand item to yaml value "inventories.%player%.offhand" from "koth"
+
+on quit:
+	if {koth} is true:
+		if {king} is event-player
+			clear {king}
+			remove bossbar "control"
+			broadcast: "&4%event-player%&c has been dethroned!"
+			place structure {f1} at location(-12961.5, 99.5, 2410.5)
+			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
+			play sound "minecraft:block.wool.place" to all players at location(-12954.5, 107.5, 2410.5)
+			play sound "minecraft:block.amethyst_block.resonate" to all players at location(-12954.5, 107.5, 2410.5)
+
+
+
+
+
+
+
+
+
 command /koth <text>:
 	trigger:
 		if arg-1 is "build":
@@ -657,6 +710,7 @@ command /koth <text>:
 					teleport loop-player to {_locc}
 					play sound "minecraft:block.beacon.deactivate" to loop-player
 					apply blindness to player for 2 seconds
+					remove player from {kothinventories::*}
 			remove bossbar "control"
 			place structure {f1} at location(-12961.5, 99.5, 2410.5)
 			play sound "minecraft:block.stone.place" to all players at location (12954.5, 107.5, 2410.5)
@@ -667,6 +721,6 @@ command /koth <text>:
 			broadcast "&2%player% &ahas ended the event!"
 			clear {king}
 			wait 1 second
-			clear {kothinventories::*}
+			loop {kothinventories::*}:
+				broadcast loop-value
 			send "&2KOTH &aClean-up successful!"
-
