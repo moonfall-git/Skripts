@@ -11,10 +11,19 @@ on script load:
 
 every 5 minutes:
 	if {koth} is true:
-		set {_droploc} to location(-12957.91, 107, 2414.15)
-		drop 1 light gray candle named "&e&lʀᴀꜰꜰʟᴇ ᴛɪᴄᴋᴇᴛ" with lore "&7Use to increase your odds at the next Vote Party!" at {_droploc}
-		broadcast "&aA &6&lLegendary&a item has been dropped on the hill!"
-
+		set {_randomnum} to a random integer between 1 and 4
+		if {_randomnum} is 1:
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			drop 1 light gray candle named "&e&lʀᴀꜰꜰʟᴇ ᴛɪᴄᴋᴇᴛ" with lore "&7Use to increase your odds at the next Vote Party!" at {_droploc}
+			broadcast "&aA &1&lRare&a item has been dropped on the hill!"
+		if {_randomnum} is 2:
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			drop 1 enchanted book of wind burst 3 at {_droploc}
+			broadcast "&aA &4&lLegendary&a item has been dropped on the hill!"
+		if {_randomnum} is 3:
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			drop 1 paper named "&e&l$1000" at {_droploc}
+			broadcast "&aA&6&l Common&a item has been dropped on the hill!"
 every 1 minute:
 	if {king} is set:
 		set {_droprandomloc} to random integer between 1 and 4
@@ -62,6 +71,10 @@ on command:
 			if command is not "l" or "g" or "mod" or "msg" or "r" or "reply" or "staff":
 				cancel event
 				send "&cYou can't use commands inside the Temple!"
+
+on eating:
+	if event-item is a cookie named "&eLaunch Cookie":
+		cancel event
 
 command /clearkoth:
 	trigger:
@@ -298,14 +311,15 @@ on region enter:
 				create bossbar titled "<#FF0000>K<#FF1000>i<#FF3000>n<#FF4C00>g <#FF7F00>o<#FF9900>f <#FCC000>t<#FFE500>h<#FFFF00>e <#AAFF00>H<#80FF00>i<#55FF00>l<#2BFF00>l&e: &2%player%" and id "control" for all players with progress 100 with colors green
 				remove bossbar "koth"
 
-				set {_helmet} to leather helmet
-				dye {_helmet} black
-				set {_chestplate} to leather chestplate
-				dye {_chestplate} black
-				set {_leggings} to leather leggings
-				dye {_leggings} black
-				set {_boots} to leather boots
-				dye {_boots} black
+				if {invisibility.%player%} is not set:
+					set {_helmet} to leather helmet
+					dye {_helmet} black
+					set {_chestplate} to leather chestplate
+					dye {_chestplate} black
+					set {_leggings} to leather leggings
+					dye {_leggings} black
+					set {_boots} to leather boots
+					dye {_boots} black
 
 				set player's helmet to {_helmet}
 				set player's chestplate to {_chestplate}
@@ -321,7 +335,7 @@ on region enter:
 
 		else if {king} is set:
 			if {king} is not player:
-				send actionbar "&eYou must be on the throne &6King&f!"
+				send actionbar "&eYou must de-throne the &6King&f!"
 	if event-region is "koth":
 		clear player's inventory
 		clear player's armor
@@ -547,6 +561,11 @@ on right click with red mushroom:
 		apply speed of tier 2 to player for 15 seconds
 		remove 1 red mushroom named "&aSpeed Mushroom &7(1 Use)" from player's inventory
 
+command /giveinvis:
+	trigger:
+		give 1 fermented spider eye with name "&bInvisibility Eye &7(1 Use)" to player
+
+
 on right click with fermented spider eye:
 	if name of player's tool is "&bInvisibility Eye &7(1 Use)":
 		if {invisibility.%player%} is not set:
@@ -555,21 +574,38 @@ on right click with fermented spider eye:
 			send "&2Invisibility&a activated!" to event-player
 			remove 1 fermented spider eye named "&bInvisibility Eye &7(1 Use)" from player's inventory
 			apply invisibility to player for 15 seconds
-			set {_helmet} to player's helmet
-			set {_chestplate} to player's chestplate
-			set {_leggings} to player's leggings
-			set {_boots} to player's boots
-			set player's helmet to air
-			set player's chestplate to air
-			set player's leggings to air
-			set player's boots to air
-			set {invisibility.%player%} to true
-			wait 15 seconds
-			set player's helmet to {_helmet}
-			set player's chestplate to {_chestplate}
-			set player's leggings to {_leggings}
-			set player's boots to {_boots}
-			clear {invisibility.%player%}
+			if {king} is event-player:
+				set {invisibility.%player%} to true
+				set player's helmet to air
+				set player's chestplate to air
+				set player's leggings to air
+				set player's boots to air
+				wait 15 seconds
+				set {_helmet} to leather helmet
+				dye {_helmet} black
+				set {_chestplate} to leather chestplate
+				dye {_chestplate} black
+				set {_leggings} to leather leggings
+				dye {_leggings} black
+				set {_boots} to leather boots
+				dye {_boots} black
+				clear {invisibility.%player%}
+			else:
+				set {_helmet} to player's helmet
+				set {_chestplate} to player's chestplate
+				set {_leggings} to player's leggings
+				set {_boots} to player's boots
+				set player's helmet to air
+				set player's chestplate to air
+				set player's leggings to air
+				set player's boots to air
+				set {invisibility.%player%} to true
+				wait 15 seconds
+				set player's helmet to {_helmet}
+				set player's chestplate to {_chestplate}
+				set player's leggings to {_leggings}
+				set player's boots to {_boots}
+				clear {invisibility.%player%}
 		else:
 			cancel event
 			send actionbar "&cYou can only use 1 &bInvisibility Eye&c at a time!" to event-player
