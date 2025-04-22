@@ -574,13 +574,17 @@ on right click with fermented spider eye:
 			send "&2Invisibility&a activated!" to event-player
 			remove 1 fermented spider eye named "&bInvisibility Eye &7(1 Use)" from player's inventory
 			apply invisibility to player for 15 seconds
+			set {_helmet} to player's helmet
+			set {_chestplate} to player's chestplate
+			set {_leggings} to player's leggings
+			set {_boots} to player's boots
+			set player's helmet to air
+			set player's chestplate to air
+			set player's leggings to air
+			set player's boots to air
+			set {invisibility.%player%} to true
+			wait 15 seconds
 			if {king} is event-player:
-				set {invisibility.%player%} to true
-				set player's helmet to air
-				set player's chestplate to air
-				set player's leggings to air
-				set player's boots to air
-				wait 15 seconds
 				set {_helmet} to leather helmet
 				dye {_helmet} black
 				set {_chestplate} to leather chestplate
@@ -589,23 +593,11 @@ on right click with fermented spider eye:
 				dye {_leggings} black
 				set {_boots} to leather boots
 				dye {_boots} black
-				clear {invisibility.%player%}
-			else:
-				set {_helmet} to player's helmet
-				set {_chestplate} to player's chestplate
-				set {_leggings} to player's leggings
-				set {_boots} to player's boots
-				set player's helmet to air
-				set player's chestplate to air
-				set player's leggings to air
-				set player's boots to air
-				set {invisibility.%player%} to true
-				wait 15 seconds
-				set player's helmet to {_helmet}
-				set player's chestplate to {_chestplate}
-				set player's leggings to {_leggings}
-				set player's boots to {_boots}
-				clear {invisibility.%player%}
+			set player's helmet to {_helmet}
+			set player's chestplate to {_chestplate}
+			set player's leggings to {_leggings}
+			set player's boots to {_boots}
+			clear {invisibility.%player%}
 		else:
 			cancel event
 			send actionbar "&cYou can only use 1 &bInvisibility Eye&c at a time!" to event-player
