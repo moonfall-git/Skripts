@@ -171,56 +171,66 @@ on damage of player:
 			if {king} is not victim:
 				broadcast "&4%victim%&c has been killed by &4%attacker%&c!"
 			set victim's health to 20 # Fully heal the player (assuming 20 is max health)
-			set {_locnum} to random integer between 1 and 4
+			if {parkour.%victim%} is set:
+				set {_loc} to location at -12956.53, 75, 2413.49 in world world
+				set yaw of {_loc} to 91.21
+				set pitch of {_loc} to -2.14
+				teleport victim to {_loc}
+			else:
+				set {_locnum} to random integer between 1 and 4
 
-			if {_locnum} is 1:
-				set {_loc} to location at -12917.5, 67, 2414.5 in world world
-				set yaw of {_loc} to 89.3
-				set pitch of {_loc} to -1.05
-				teleport victim to {_loc}
-			if {_locnum} is 2:
-				set {_loc} to location at -12957.94, 67, 2455.26 in world world
-				set yaw of {_loc} to 179.16
-				set pitch of {_loc} to 1.5
-				teleport victim to {_loc}
-			if {_locnum} is 3:
-				set {_loc} to location at -12997.8, 67, 2413.5 in world world
-				set yaw of {_loc} to -89.6
-				set pitch of {_loc} to 1.2
-				teleport victim to {_loc}
-			if {_locnum} is 4:
-				set {_loc} to location at -12958.5, 67, 2454.36 in world world
-				set yaw of {_loc} to 179.76
-				set pitch of {_loc} to 1.8
-				teleport victim to {_loc}
-			make console execute "effect clear %victim%"
+				if {_locnum} is 1:
+					set {_loc} to location at -12917.5, 67, 2414.5 in world world
+					set yaw of {_loc} to 89.3
+					set pitch of {_loc} to -1.05
+					teleport victim to {_loc}
+				if {_locnum} is 2:
+					set {_loc} to location at -12957.94, 67, 2455.26 in world world
+					set yaw of {_loc} to 179.16
+					set pitch of {_loc} to 1.5
+					teleport victim to {_loc}
+				if {_locnum} is 3:
+					set {_loc} to location at -12997.8, 67, 2413.5 in world world
+					set yaw of {_loc} to -89.6
+					set pitch of {_loc} to 1.2
+					teleport victim to {_loc}
+				if {_locnum} is 4:
+					set {_loc} to location at -12958.5, 67, 2454.36 in world world
+					set yaw of {_loc} to 179.76
+					set pitch of {_loc} to 1.8
+					teleport victim to {_loc}
+				make console execute "effect clear %victim%"
 
 on region exit:
 	if event-region is "koth":
 		clear player's inventory
 		clear player's armor
-		set {_locnum} to random integer between 1 and 4
+		set {_loc} to location at -12956.53, 75, 2413.49 in world world
+		set yaw of {_loc} to 91.21
+		set pitch of {_loc} to -2.14
+		teleport player to {_loc}
+	#	set {_locnum} to random integer between 1 and 4
 
-		if {_locnum} is 1:
-			set {_loc} to location at -12917.5, 67, 2414.5 in world world
-			set yaw of {_loc} to 89.3
-			set pitch of {_loc} to -1.05
-			teleport player to {_loc}
-		if {_locnum} is 2:
-			set {_loc} to location at -12957.94, 67, 2455.26 in world world
-			set yaw of {_loc} to 179.16
-			set pitch of {_loc} to 1.5
-			teleport player to {_loc}
-		if {_locnum} is 3:
-			set {_loc} to location at -12997.8, 67, 2413.5 in world world
-			set yaw of {_loc} to -89.6
-			set pitch of {_loc} to 1.2
-			teleport player to {_loc}
-		if {_locnum} is 4:
-			set {_loc} to location at -12958.5, 67, 2454.36 in world world
-			set yaw of {_loc} to 179.76
-			set pitch of {_loc} to 1.8
-			teleport player to {_loc}
+	#	if {_locnum} is 1:
+	#		set {_loc} to location at -12917.5, 67, 2414.5 in world world
+	#		set yaw of {_loc} to 89.3
+	#		set pitch of {_loc} to -1.05
+	#		teleport player to {_loc}
+	#	if {_locnum} is 2:
+	#		set {_loc} to location at -12957.94, 67, 2455.26 in world world
+	#		set yaw of {_loc} to 179.16
+	#		set pitch of {_loc} to 1.5
+	#		teleport player to {_loc}
+	#	if {_locnum} is 3:
+	#		set {_loc} to location at -12997.8, 67, 2413.5 in world world
+	#		set yaw of {_loc} to -89.6
+	#		set pitch of {_loc} to 1.2
+	#		teleport player to {_loc}
+	#	if {_locnum} is 4:
+	#		set {_loc} to location at -12958.5, 67, 2454.36 in world world
+	#		set yaw of {_loc} to 179.76
+	#		set pitch of {_loc} to 1.8
+	#		teleport player to {_loc}
 
 		set {_sword} to wooden sword with name "&dDagger"
 		enchant {_sword} with sharpness 2
@@ -257,6 +267,8 @@ command /removebos:
 
 
 on region enter:
+	if event-region is "parkourlobby":
+		set {parkour.%player%} to true
 	if event-region is "maze":
 		apply speed of tier 2 to player for 999 days
 	if event-region is "hill":
@@ -503,6 +515,7 @@ on region exit:
 			#clear {king}
 
 	if event-region is "temple":
+		clear {parkour.%event-player%}
 		remove player from {kothinventory::*}
 		clear player's inventory
 		clear player's armor
@@ -732,6 +745,7 @@ command /koth <text>:
 
 		if arg-1 is "stop":
 			loop all players:
+				clear {parkour.%loop-player%}
 				if regions at loop-player contain "temple":
 					set {_locc} to location(-13016.33, 69, 2414.47)
 					set yaw of {_locc} to -89.94
