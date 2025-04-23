@@ -295,6 +295,19 @@ command /removebos:
 
 
 on region enter:
+	if event-region is "hard1":
+		if {parkour.hard1.%player%} is not set:
+			set {parkour.hard1.%player%} to true
+			make console execute "eco give %player% 1500"
+			send "<#A5F0FF>You completed the hard parkour!" to event-player
+			play sound "minecraft:block.note_block.pling" with pitch 2 to event-player
+	if event-region is "hard2":
+		if {parkour.hard2.%player%} is not set:
+			set {parkour.hard2.%player%} to true
+			make console execute "eco give %player% 1500"
+			send "<#A5F0FF>You completed the hard parkour!" to event-player
+			play sound "minecraft:block.note_block.pling" with pitch 2 to event-player
+
 	if event-region is "parkourlobby":
 		set {parkour.%player%} to true
 	if event-region is "maze":
@@ -403,6 +416,8 @@ on region enter:
 		set player's boots to {_boots}
 
 		send "&aYou completed the parkour! Take control of the hill!" to player
+		clear {parkour.hard1.%player%}
+		clear {parkour.hard2.%player%}
 		play sound "minecraft:block.note_block.pling" to player
 
 		set {invuln.%player%} to true
@@ -624,7 +639,7 @@ command /claim:
 	trigger:
 		if {windburst.%player%} is true:
 			#give 1 enchanted book of wind burst 3 to player
-			make console execute "minecraft:give %player% minecraft:enchanted_book[minecraft:stored_enchantments={"minecraft:wind_burst":3}]"
+			make console execute "minecraft:give %player% minecraft:enchanted_book[minecraft:stored_enchantments={'minecraft:wind_burst':3}]"
 			send "<#A5F0FF>You claimed your reward!" to player
 			play sound "minecraft:entity.player.levelup" to player
 			clear {windburst.%player%}
