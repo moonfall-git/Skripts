@@ -623,7 +623,8 @@ command /claim:
 	cooldown: 5 seconds
 	trigger:
 		if {windburst.%player%} is true:
-			give 1 enchanted book of wind burst 3 to player
+			#give 1 enchanted book of wind burst 3 to player
+			make console execute "minecraft:give %player% minecraft:enchanted_book[minecraft:stored_enchantments={"minecraft:wind_burst":3}]"
 			send "<#A5F0FF>You claimed your reward!" to player
 			play sound "minecraft:entity.player.levelup" to player
 			clear {windburst.%player%}
