@@ -14,7 +14,7 @@ command /legend:
 		set {_droploc} to location(-12957.91, 107, 2414.15)
 		drop 1 enchanted book of wind burst 3 named "<#FF0000>L<#FF4000>e<#FF7F00>g<#FFAA00>e<#FFD400>n<#FFFF00>d<#AAFF00>a<#55FF00>r<#00FF00>y <#0000FF>R<#2600C1>e<#4B0082>w<#63009D>a<#7C00B8>r<#9400D3>d" with lore " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
 		broadcast "<#A5F0FF>A <#FF0000>&lLegendary<#A5F0FF> item has been dropped on the hill!"
-every 5 minutes:
+every 4 minutes:
 	if {koth} is true:
 		set {_randomnum} to a random integer between 1 and 7
 		if {_randomnum} is 1:
@@ -36,15 +36,20 @@ every 5 minutes:
 		if {_randomnum} is 5:
 			set {_droploc} to location(-12957.91, 107, 2414.15)
 			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l1" with lore "<#50B1FF>(Player) <#FFE7A9>&ohopped on the server!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
-			broadcast "<#A5F0FF>A <#A5F0FF>Custom Join Message<#A5F0FF> has been dropped on the hill!"
+			broadcast "<#A5F0FF>A &cCustom Join Message<#A5F0FF> has been dropped on the hill!"
 		if {_randomnum} is 6:
 			set {_droploc} to location(-12957.91, 107, 2414.15)
 			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l2" with lore "<#F2C6DE>Hide yo' shoes, hide yo' wife, <#68B7F6>(Player)<#F2C6DE> is back!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
-			broadcast "<#A5F0FF>A <#A5F0FF>Custom Join Message<#A5F0FF> has been dropped on the hill!"
+			broadcast "<#A5F0FF>A &cCustom Join Message<#A5F0FF> has been dropped on the hill!"
 		if {_randomnum} is 7:
-			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l3" with lore "<#87F8CA>&oFrom the shadows, <#50B1FF>(Player) <#87F8CA>&ohas joined us!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
 			set {_droploc} to location(-12957.91, 107, 2414.15)
-			broadcast "<#A5F0FF>A <#A5F0FF>Custom Join Message<#A5F0FF> has been dropped on the hill!"
+			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l3" with lore "<#87F8CA>&oFrom the shadows, <#50B1FF>(Player) <#87F8CA>&ohas joined us!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			broadcast "<#A5F0FF>A &cCustom Join Message<#A5F0FF> has been dropped on the hill!"
+
+command /droppls:
+	trigger:
+		set {_droploc} to location(-12957.91, 107, 2414.15)
+		drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l1" with lore "<#50B1FF>(Player) <#FFE7A9>&ohopped on the server!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
 
 
 every 1 minute:
@@ -567,7 +572,7 @@ on inventory click:
 on right click with name tag:
 	if player's tool is a name tag named "<#A5F0FF>Custom Join Message &1&l1":
 		make console execute "lp user %player% permission set custom.1"
-		remove 1 name tag named "<#A5F0FF>Custom Join Message &1&1" from player's inventory
+		remove 1 name tag named "<#A5F0FF>Custom Join Message &1&l1" from player's inventory
 		send "<#A5F0FF>Redeemed your Custom Join Message!" to player
 		play sound "minecraft:entity.experience_orb.pickup" to player
 
