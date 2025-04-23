@@ -14,6 +14,7 @@ command /live [<text>]:
         make console execute "lp user %player% parent add live"
         play sound "minecraft:block.note_block.pling" to player
 
+test
 every 10 minutes:
   loop all players:
     if {live.%uuid of loop-player%} is true:
