@@ -1,0 +1,24 @@
+command /silk <text> [<player>]:
+  trigger:
+    if arg-1 is "give":
+      if arg-2 is set:
+        if arg-2 is a player:
+          give 1 diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)" with lore " ", and "&7Use to mine and pickup a Monster Spawner!" to arg-2
+
+
+on tab complete of "/silk":
+  set tab completions for position 1 to "give"
+
+
+on break of a spawner:
+  if player's tool is diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)":
+    set {_i} to "%entity type of event-block%"
+    set {_test} to "minecraft:give %player% minecraft:spawner[minecraft:block_entity_data={id:'minecraft:mob_spawner',SpawnData:{entity:{id:'%{_i}%'}}}]"
+    make console execute "%{_test}%"
+    remove 1 diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)" from player's inventory
+    play sound "minecraft:entity.item.pickup" to player
+
+    #if event-block is zombie spawner:
+    #  drop 1 zombie spawner at event-location
+    #  remove 1 diamond pickaxe named "&d&lꜱᴘᴀᴡɴᴇʀ ᴘɪᴄᴋᴀxᴇ&7 (1 Use)" from player's inventory
+    #
