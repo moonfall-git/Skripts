@@ -69,7 +69,15 @@ on inventory click:
 
 
 on join:
-	if {jl.custom1.%player%} is true:
-		broadcast "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!"
-	if player has permission "penis.penis":
-		broadcast "<#F2C6DE>Hide yo' shoes, hide yo' wife, <#68B7F6>%player%<#F2C6DE> is back!"
+	if player is not op:
+		if player has permission "custom.1":
+			broadcast "<#50B1FF>%player% <#FFE7A9>&ohopped on the server!"
+			play sound "minecraft:entity.experience_orb.pickup" to all players
+		if player has permission "custom.2":
+			broadcast "<#F2C6DE>&oHide yo' shoes, hide yo' wife, <#50B1FF>%player%<#F2C6DE>&o is back!"
+			play sound "minecraft:entity.experience_orb.pickup" to all players
+		if player has permission "custom.3":
+			broadcast "<#87F8CA>&oFrom the shadows, <#50B1FF>%player% <#87F8CA>&ohas joined us!"
+			play sound "minecraft:entity.experience_orb.pickup" to all players
+		else:
+			broadcast "&b+&f %player%"
