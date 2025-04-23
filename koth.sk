@@ -9,21 +9,44 @@ on script load:
 	set {f5} to structure with id "frame5"
 	set {f6} to structure with id "frame6"
 
+command /legend:
+	trigger:
+		set {_droploc} to location(-12957.91, 107, 2414.15)
+		drop 1 enchanted book of wind burst 3 named "<#FF0000>L<#FF4000>e<#FF7F00>g<#FFAA00>e<#FFD400>n<#FFFF00>d<#AAFF00>a<#55FF00>r<#00FF00>y <#0000FF>R<#2600C1>e<#4B0082>w<#63009D>a<#7C00B8>r<#9400D3>d" with lore " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+		broadcast "<#A5F0FF>A <#FF0000>&lLegendary<#A5F0FF> item has been dropped on the hill!"
 every 5 minutes:
 	if {koth} is true:
-		set {_randomnum} to a random integer between 1 and 4
+		set {_randomnum} to a random integer between 1 and 7
 		if {_randomnum} is 1:
 			set {_droploc} to location(-12957.91, 107, 2414.15)
 			drop 1 light gray candle named "&e&lʀᴀꜰꜰʟᴇ ᴛɪᴄᴋᴇᴛ" with lore "&7Use to increase your odds at the next Vote Party!" at {_droploc}
-			broadcast "&aA &1&lRare&a item has been dropped on the hill!"
+			broadcast "<#A5F0FF>A &1&lRare<#A5F0FF> item has been dropped on the hill!"
 		if {_randomnum} is 2:
 			set {_droploc} to location(-12957.91, 107, 2414.15)
-			drop 1 enchanted book of wind burst 3 at {_droploc}
-			broadcast "&aA &4&lLegendary&a item has been dropped on the hill!"
+			drop 1 enchanted book of wind burst 3 named "<#FF0000>L<#FF4000>e<#FF7F00>g<#FFAA00>e<#FFD400>n<#FFFF00>d<#AAFF00>a<#55FF00>r<#00FF00>y <#0000FF>R<#2600C1>e<#4B0082>w<#63009D>a<#7C00B8>r<#9400D3>d" with lore " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			broadcast "<#A5F0FF>A <#FF0000>&lLegendary<#A5F0FF> item has been dropped on the hill!"
 		if {_randomnum} is 3:
 			set {_droploc} to location(-12957.91, 107, 2414.15)
-			drop 1 paper named "&e&l$1000" at {_droploc}
-			broadcast "&aA&6&l Common&a item has been dropped on the hill!"
+			drop 1 paper named "&a&l$5000" with lore " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			broadcast "<#A5F0FF>An&6&l Uncommon<#A5F0FF> item has been dropped on the hill!"
+		if {_randomnum} is 4:
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			drop 1 paper named "&e&l$1000" with lore " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			broadcast "<#A5F0FF>A&6&l Common<#A5F0FF> item has been dropped on the hill!"
+		if {_randomnum} is 5:
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l1" with lore "<#50B1FF>(Player) <#FFE7A9>&ohopped on the server!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			broadcast "<#A5F0FF>A <#A5F0FF>Custom Join Message<#A5F0FF> has been dropped on the hill!"
+		if {_randomnum} is 6:
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l2" with lore "<#F2C6DE>Hide yo' shoes, hide yo' wife, <#68B7F6>(Player)<#F2C6DE> is back!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			broadcast "<#A5F0FF>A <#A5F0FF>Custom Join Message<#A5F0FF> has been dropped on the hill!"
+		if {_randomnum} is 7:
+			drop 1 name tag named "<#A5F0FF>Custom Join Message &1&l3" with lore "<#87F8CA>&oFrom the shadows, <#50B1FF>(Player) <#87F8CA>&ohas joined us!", " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
+			set {_droploc} to location(-12957.91, 107, 2414.15)
+			broadcast "<#A5F0FF>A <#A5F0FF>Custom Join Message<#A5F0FF> has been dropped on the hill!"
+
+
 every 1 minute:
 	if {king} is set:
 		set {_droprandomloc} to random integer between 1 and 4
@@ -541,6 +564,24 @@ on inventory click:
 		cancel event
 
 
+on right click with name tag:
+	if player's tool is a name tag named "<#A5F0FF>Custom Join Message &1&l1":
+		make console execute "lp user %player% permission set custom.1"
+		remove 1 name tag named "<#A5F0FF>Custom Join Message &1&1" from player's inventory
+		send "<#A5F0FF>Redeemed your Custom Join Message!" to player
+		play sound "minecraft:entity.experience_orb.pickup" to player
+
+	if player's tool is a name tag named "<#A5F0FF>Custom Join Message &1&l2":
+		make console execute "lp user %player% permission set custom.2"
+		remove 1 name tag named "<#A5F0FF>Custom Join Message &1&l2" from player's inventory
+		send "<#A5F0FF>Redeemed your Custom Join Message!" to player
+		play sound "minecraft:entity.experience_orb.pickup" to player
+
+	if player's tool is a name tag named "<#A5F0FF>Custom Join Message &1&l3":
+		make console execute "lp user %player% permission set custom.3"
+		remove 1 name tag named "<#A5F0FF>Custom Join Message &1&l3" from player's inventory
+		send "<#A5F0FF>Redeemed your Custom Join Message!" to player
+		play sound "minecraft:entity.experience_orb.pickup" to player
 
 on right click:
 	if player's tool is a cookie with name "&eLaunch Cookie":
@@ -559,6 +600,30 @@ on right click:
 				send actionbar "&cYou must wait 1 more second!"
 			else:
 				send actionbar "&cYou must wait %{launch.%player%.seconds}% more seconds!"
+	if player's tool is a enchanted book of wind burst 3 named "<#FF0000>L<#FF4000>e<#FF7F00>g<#FFAA00>e<#FFD400>n<#FFFF00>d<#AAFF00>a<#55FF00>r<#00FF00>y <#0000FF>R<#2600C1>e<#4B0082>w<#63009D>a<#7C00B8>r<#9400D3>d":
+		set {windburst.%player%} to true
+		send "" to player
+		send "<#A5F0FF>You claimed a reward!" to player
+		send "" to player
+		send "<#A5F0FF>After the event, use &c/claim<#A5F0FF> to get your reward!" to player
+		play sound "minecraft:entity.experience_orb.pickup" to player
+		remove 1 enchanted book of wind burst 3 named "<#FF0000>L<#FF4000>e<#FF7F00>g<#FFAA00>e<#FFD400>n<#FFFF00>d<#AAFF00>a<#55FF00>r<#00FF00>y <#0000FF>R<#2600C1>e<#4B0082>w<#63009D>a<#7C00B8>r<#9400D3>d" from player's inventory
+
+	if player's tool is a paper named "&a&l$5000":
+		make console execute "eco give %player% 5000"
+		play sound "minecraft:entity.experience_orb.pickup" to player
+		remove 1 paper named "&a&l$5000" from player's inventory
+
+command /claim:
+	cooldown: 5 seconds
+	trigger:
+		if {windburst.%player%} is true:
+			give 1 enchanted book of wind burst 3 to player
+			send "<#A5F0FF>You claimed your reward!" to player
+			play sound "minecraft:entity.player.levelup" to player
+			clear {windburst.%player%}
+		else:
+			send "&cYou have no rewards to claim!"
 
 command /addinv:
 	trigger:
@@ -583,7 +648,7 @@ on right click with fermented spider eye:
 	if name of player's tool is "&bInvisibility Eye &7(1 Use)":
 		if {invisibility.%player%} is not set:
 			cancel event
-			play sound "minecraft:block.enchantment_table.use" at event-player's location to all players
+			play sound "minecraft:block.enchantment_table.use" with volume 0.5 at event-player's location to all players
 			send "&2Invisibility&a activated!" to event-player
 			remove 1 fermented spider eye named "&bInvisibility Eye &7(1 Use)" from player's inventory
 			apply invisibility to player for 15 seconds
