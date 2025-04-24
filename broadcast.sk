@@ -1,0 +1,92 @@
+command /mcb <text>:
+	permission: op
+	trigger:
+		broadcast "&7&m                                                          "
+		broadcast ""
+		broadcast colored arg-1
+		broadcast ""
+		broadcast "&7&m                                                          "
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+
+command /mca <text>:
+	permission: op
+	trigger:
+		broadcast colored arg-1
+		play sound "minecraft:entity.experience_orb.pickup" to all players
+
+command /mcaa <text>:
+	permission: op
+	trigger:
+		broadcast ""
+		broadcast colored arg-1
+		broadcast ""
+		play sound "minecraft:entity.experience_orb.pickup" to all players
+
+every 10 minutes:
+	set {_message} to random integer between 1 and 8
+
+	if {_message} = 1:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &7Link your Discord account for the <#E08024>ᴄʀᴀᴛᴇʀ &7rank!"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r&5&l/discord &7or &5&l/discord link"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+
+	if {_message} = 2:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &7Your Playtime earns you special rewards!"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &6&l/rewards"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+
+	if {_message} = 3:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &7Did you know that if you Vote on All Sites a day,"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &7you receive a &e&lRaffle Ticket&r&7!"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+	if {_message} = 4:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &7Online Interactive Map:"
+		broadcast formatted "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <link:https://www.moon-fall.net/map>&d&oClick to view!<r>"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+	if {_message} = 5:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &7We are currently looking for more staff!"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <link:https://www.moon-fall.net/apply>&e&oClick here to apply!<r>"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+	if {_message} = 6:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &7Need Staff Assistance?"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &7Use &c&l/staff &7to request a Staff Member!"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+	if {_message} = 7:
+		broadcast ""
+		broadcast "&r &r &r &7Want the ability to Fly within Town Limits and much more?"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &7Become a &6&lVIP&7! Use &e&l/store"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+	if {_message} = 8:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &7Did you know we have In-Game Voice chat?"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &7Download the &bSimpleVoiceChat &7mod!"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players
+
+	if {_message} = 9:
+		broadcast ""
+		broadcast "&r &r &r &r &r &r &r &r &r &r <#E3E3E3>You can buy the &d&lSpawner Pickaxe <#E3E3E3>, &b&lExtra /PV"
+		broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#E3E3E3>and more in &6/shop<#E3E3E3>!"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 1 and pitch 1.5 to all players

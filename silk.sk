@@ -10,6 +10,16 @@ on tab complete of "/silk":
   set tab completions for position 1 to "give"
 
 
+on item damage:
+  if player's tool is a diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)":
+    cancel event
+
+on break:
+  if player's tool is diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)":
+    if event-block is not a spawner:
+      cancel event
+      send actionbar "<#A5F0FF>You can only use this on Mob Spawners!" to player
+
 on break of a spawner:
   if player's tool is diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)":
     set {_i} to "%entity type of event-block%"
@@ -18,7 +28,10 @@ on break of a spawner:
     remove 1 diamond pickaxe named "&d&lSpawner Pickaxe&7 (1 Use)" from player's inventory
     play sound "minecraft:entity.item.pickup" to player
 
-    #if event-block is zombie spawner:
-    #  drop 1 zombie spawner at event-location
-    #  remove 1 diamond pickaxe named "&d&lꜱᴘᴀᴡɴᴇʀ ᴘɪᴄᴋᴀxᴇ&7 (1 Use)" from player's inventory
-    #
+on place of a spawner:
+  #send nbt compound of event-block to player
+  #set {_ii} to "%entity type of player's tool%"
+  #set entity type of event-block to {_ii}
+  set {_idofEventBlock} to nbt compound of player's tool
+  set nbt compound of event-block to {_idofEventBlock}
+  #set int tag "custom;upgrade" of nbt compound of event-block to 1

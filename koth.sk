@@ -14,7 +14,7 @@ command /legend:
 		set {_droploc} to location(-12957.91, 107, 2414.15)
 		drop 1 enchanted book of wind burst 3 named "<#FF0000>L<#FF4000>e<#FF7F00>g<#FFAA00>e<#FFD400>n<#FFFF00>d<#AAFF00>a<#55FF00>r<#00FF00>y <#0000FF>R<#2600C1>e<#4B0082>w<#63009D>a<#7C00B8>r<#9400D3>d" with lore " ", and "&f&lʀɪɢʜᴛ ᴄʟɪᴄᴋ&7 to claim!" at {_droploc}
 		broadcast "<#A5F0FF>A <#FF0000>&lLegendary<#A5F0FF> item has been dropped on the hill!"
-every 4 minutes:
+every 4 seconds:
 	if {koth} is true:
 		set {_randomnum} to a random integer between 1 and 7
 		if {_randomnum} is 1:
