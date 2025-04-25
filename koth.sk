@@ -9,6 +9,83 @@ on script load:
 	set {f5} to structure with id "frame5"
 	set {f6} to structure with id "frame6"
 
+command /clearsorted:
+	trigger:
+		clear {sorted::*}
+		clear {kingTime::*}
+		send "Cleared all the shit" to player
+
+placeholderapi placeholder with the prefix "moon":
+	if the identifier is "koth":
+		if {kothinventory::*} contains player:
+			set the result to "yes"
+		else:
+			set the result to "no"
+	if the identifier is "1":
+		if {sorted::1} is set:
+			set {_player1} to {sorted::1} parsed as player
+			set the result to "%{_player1}%"
+		else:
+			set the result to ""
+
+	if the identifier is "2":
+		if {sorted::2} is set:
+			set {_player2} to {sorted::2} parsed as player
+			set the result to "%{_player2}%"
+		else:
+			set the result to ""
+
+	if the identifier is "3":
+		if {sorted::3} is set:
+			set {_player3} to {sorted::3} parsed as player
+			set the result to "%{_player3}%"
+		else:
+			set the result to ""
+
+	if the identifier is "4":
+		if {sorted::4} is set:
+			set {_player4} to {sorted::4} parsed as player
+			set the result to "%{_player4}%"
+		else:
+			set the result to ""
+
+	if the identifier is "5":
+		if {sorted::5} is set:
+			set {_player5} to {sorted::5} parsed as player
+			set the result to "%{_player5}%"
+		else:
+			set the result to ""
+
+	if the identifier is "6":
+		if {sorted::6} is set:
+			set {_player6} to {sorted::6} parsed as player
+			set the result to "%{_player6}%"
+		else:
+			set the result to ""
+
+	if the identifier is "7":
+		if {sorted::7} is set:
+			set {_player7} to {sorted::7} parsed as player
+			set the result to "%{_player7}%"
+		else:
+			set the result to ""
+
+	if the identifier is "8":
+		if {sorted::8} is set:
+			set {_player8} to {sorted::8} parsed as player
+			set the result to "%{_player8}%"
+		else:
+			set the result to ""
+
+
+
+every 1 second:
+	loop all players:
+		if {king} is loop-player:
+			add 1 to {kingTime::%loop-player%}
+	set {sorted::*} to sorted indices of {kingTime::*} in descending order
+
+
 command /legend:
 	trigger:
 		set {_droploc} to location(-12957.91, 107, 2414.15)
@@ -570,6 +647,10 @@ on region exit:
 			#clear {king}
 
 	if event-region is "temple":
+		clear {parkour.hard1.%player%}
+		clear {parkour.hard2.%player%}
+		clear {parkour.medium.%player%}
+		clear {parkour.easy.%player%}
 		clear {parkour.%event-player%}
 		remove player from {kothinventory::*}
 		clear player's inventory
@@ -736,6 +817,15 @@ command /joinkoth:
 		else if {koth} is false:
 			send "&cKOTH isn't active right now!"
 
+command /leavekoth:
+	trigger:
+		if {koth} is true:
+			if {kothinventory::*} contains player:
+				set {_locc} to location(-13016.33, 69, 2414.47)
+				set yaw of {_locc} to -89.94
+				set pitch of {_locc} to 4.5
+				teleport player to {_locc}
+
 
 on join:
 	if {kothinventories::*} contains player:
@@ -861,7 +951,9 @@ command /koth <text>:
 			set {koth} to false
 			broadcast "&2%player% &ahas ended the event!"
 			clear {king}
-			loop {kothinventories::*}:
-				broadcast loop-value
+			clear {sorted::*}
+			clear {kingTime::*}
+			#loop {kothinventories::*}:
+			#	broadcast loop-value
 			wait 1 second
 			send "&2KOTH &aClean-up successful!"
