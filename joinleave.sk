@@ -69,7 +69,7 @@ on inventory click:
 
 
 on join:
-	set {_nick} to placeholder "hexnicks_nick"
+	set {_nick} to the placeholder "hexnicks_nick" from event-player
 	if player is not op:
 		if player has permission "custom.1":
 			broadcast "<#50B1FF>%{_nick}% <#FFE7A9>&ohopped on the server!"
