@@ -24,7 +24,7 @@ placeholderapi placeholder with the prefix "moon":
 	if the identifier is "1":
 		if {sorted::1} is set:
 			set {_player1} to {sorted::1} parsed as player
-			set the result to "%{_player1}%"
+			set the result to "%{_player1}% &6👑"
 		else:
 			set the result to ""
 
@@ -349,6 +349,11 @@ on region exit:
 		dye {_leggings} white
 		set {_boots} to leather boots
 		dye {_boots} white
+		if player's name is "LegendaryEthang":
+			dye {_helmet} light blue
+			dye {_chestplate} light blue
+			dye {_leggings} light blue
+			dye {_boots} light blue
 		set player's helmet to {_helmet}
 		set player's chestplate to {_chestplate}
 		set player's leggings to {_leggings}
@@ -497,6 +502,11 @@ on region enter:
 		dye {_leggings} white
 		set {_boots} to leather boots
 		dye {_boots} white
+		if player's name is "LegendaryEthang":
+			dye {_helmet} light blue
+			dye {_chestplate} light blue
+			dye {_leggings} light blue
+			dye {_boots} light blue
 		set player's helmet to {_helmet}
 		set player's chestplate to {_chestplate}
 		set player's leggings to {_leggings}
@@ -609,6 +619,11 @@ on region enter:
 			dye {_leggings} white
 			set {_boots} to leather boots
 			dye {_boots} white
+			if player's name is "LegendaryEthang":
+				dye {_helmet} light blue
+				dye {_chestplate} light blue
+				dye {_leggings} light blue
+				dye {_boots} light blue
 			set player's helmet to {_helmet}
 			set player's chestplate to {_chestplate}
 			set player's leggings to {_leggings}
@@ -815,7 +830,7 @@ command /joinkoth:
 				play sound "minecraft:block.bell.resonate" to player
 				apply blindness to player for 3 seconds
 		else if {koth} is false:
-			send "&cKOTH isn't active right now!"
+			send "&cKOTH isn't active right now!" to player
 
 command /leavekoth:
 	trigger:
@@ -825,6 +840,8 @@ command /leavekoth:
 				set yaw of {_locc} to -89.94
 				set pitch of {_locc} to 4.5
 				teleport player to {_locc}
+			else if {kothinventory::*} does not contain player:
+				send "&cKOTH isn't active right now!" to player
 
 
 on join:
