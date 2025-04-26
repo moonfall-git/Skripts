@@ -24,56 +24,80 @@ placeholderapi placeholder with the prefix "moon":
 	if the identifier is "1":
 		if {sorted::1} is set:
 			set {_player1} to {sorted::1} parsed as player
-			set the result to "%{_player1}% &6👑"
+			if {king} is {_player1}:
+				set the result to "%{_player1}% &6👑"
+			else:
+				set the result to "%{_player1}%"
 		else:
 			set the result to ""
 
 	if the identifier is "2":
 		if {sorted::2} is set:
 			set {_player2} to {sorted::2} parsed as player
-			set the result to "%{_player2}%"
+			if {king} is {_player2}:
+				set the result to "%{_player2}% &6👑"
+			else:
+				set the result to "%{_player2}%"
 		else:
 			set the result to ""
 
 	if the identifier is "3":
 		if {sorted::3} is set:
 			set {_player3} to {sorted::3} parsed as player
-			set the result to "%{_player3}%"
+			if {king} is {_player3}:
+				set the result to "%{_player3}% &6👑"
+			else:
+				set the result to "%{_player3}%"
 		else:
 			set the result to ""
 
 	if the identifier is "4":
 		if {sorted::4} is set:
 			set {_player4} to {sorted::4} parsed as player
-			set the result to "%{_player4}%"
+			if {king} is {_player4}:
+				set the result to "%{_player4}% &6👑"
+			else:
+				set the result to "%{_player4}%"
 		else:
 			set the result to ""
 
 	if the identifier is "5":
 		if {sorted::5} is set:
 			set {_player5} to {sorted::5} parsed as player
-			set the result to "%{_player5}%"
+			if {king} is {_player5}:
+				set the result to "%{_player5}% &6👑"
+			else:
+				set the result to "%{_player5}%"
 		else:
 			set the result to ""
 
 	if the identifier is "6":
 		if {sorted::6} is set:
 			set {_player6} to {sorted::6} parsed as player
-			set the result to "%{_player6}%"
+			if {king} is {_player6}:
+				set the result to "%{_player6}% &6👑"
+			else:
+				set the result to "%{_player6}%"
 		else:
 			set the result to ""
 
 	if the identifier is "7":
 		if {sorted::7} is set:
 			set {_player7} to {sorted::7} parsed as player
-			set the result to "%{_player7}%"
+			if {king} is {_player7}:
+				set the result to "%{_player7}% &6👑"
+			else:
+				set the result to "%{_player7}%"
 		else:
 			set the result to ""
 
 	if the identifier is "8":
 		if {sorted::8} is set:
 			set {_player8} to {sorted::8} parsed as player
-			set the result to "%{_player8}%"
+			if {king} is {_player8}:
+				set the result to "%{_player8}% &6👑"
+			else:
+				set the result to "%{_player8}%"
 		else:
 			set the result to ""
 
@@ -629,26 +653,6 @@ on region enter:
 			set player's leggings to {_leggings}
 			set player's boots to {_boots}
 
-
-command /f1:
-	trigger:
-		place structure {f1} at player's location
-
-command /f2:
-	trigger:
-		place structure {f2} at player's location
-command /f3:
-	trigger:
-		place structure {f3} at player's location
-command /f4:
-	trigger:
-		place structure {f4} at player's location
-command /f5:
-	trigger:
-		place structure {f5} at player's location
-command /f6:
-	trigger:
-		place structure {f6} at player's location
 
 on region exit:
 	if event-region is "maze":
