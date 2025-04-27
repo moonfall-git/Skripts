@@ -15,6 +15,12 @@ command /live [<text>]:
         play sound "minecraft:block.note_block.pling" to player
 
 
+command /liveclear <player>:
+  trigger:
+    clear {live.%uuid of arg-1%}
+    make console execute "lp user %player% parent remove live"
+    clear {live.%uuid of player%.arg}
+
 every 10 minutes:
   loop all players:
     if {live.%uuid of loop-player%} is true:
