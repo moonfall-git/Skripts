@@ -1,0 +1,48 @@
+variables:
+	{prefix} = "<#ff5733>&lʜᴇʟᴘ&7"
+on load:
+	set {prefix} to "<#ff5733>&lʜᴇʟᴘ&7 »"
+command /staff [<text>]:
+	aliases: /helpop
+	executable by: players
+	permission: staff.command
+	description: Use to call a staff member.
+	cooldown: 1 minute
+	cooldown message: &cYou must wait to use this command again.
+	cooldown bypass: staff.bypass
+	trigger:
+		if arg is set:
+			set {_author} to new author with name "Staff Help"
+
+			create a new embed:
+				title: "%player% says:"
+				description: "%arg-1%"
+				color: "#ff5733"
+				timestamp: true
+				thumbnail: "https://minotar.net/avatar/%player%"
+				author: {_author}
+				saveInto: {_embed}
+
+
+			create a new webhook message:
+				webhook: "https://discord.com/api/webhooks/1360112069734694932/sLyL6tInLkcVWNlPEugptkD1BCqnzbpRhxW7XOBMc3wemUTj_dwTj8gxUN2x9Z978Ke3"
+				#message: "@Support **%player%** has requested assistance with message ``%arg-1%``"
+				username: "Moon Fall"
+				avatar: "https://www.moon-fall.net/uploads/f34167b20426b3a5475baa311749091893a3432elogo.webp"
+				embed: {_embed}
+			message "&bYour message has been sent to all online Staff!"
+			loop all players:
+				if loop-player has permission "staff.permission":
+					send formatted "%{prefix}% <#ff5733>%player% says: &7%arg-1% <cmd:/tp %player%>&b&o(Click to TP)<r>" to loop-player
+					play sound "entity.experience_orb.pickup" with volume 1 to loop-player
+		else:
+			message "&bAll online Staff have been notified."
+			create a new webhook message:
+				webhook: "https://discord.com/api/webhooks/1360112069734694932/sLyL6tInLkcVWNlPEugptkD1BCqnzbpRhxW7XOBMc3wemUTj_dwTj8gxUN2x9Z978Ke3"
+				message: "@Support **%player%** has requested assistance!"
+				username: "Staff Assistance"
+				avatar: "https://www.moon-fall.net/uploads/f34167b20426b3a5475baa311749091893a3432elogo.webp"
+			loop all players:
+				if loop-player has permission "staff.permission":
+					send formatted "%{prefix}% <#ff5733>%player% has requested assistance! <cmd:/tp %player%>&b&o(Click to TP)<r>" to loop-player
+					play sound "entity.experience_orb.pickup" with volume 1 to loop-player
