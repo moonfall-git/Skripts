@@ -13,7 +13,8 @@ on script load:
 command /clearsorted:
 	trigger:
 		clear {sorted::*}
-		clear {kingTime::*}
+		clear {kingTdime::*}
+		clear {kingtime::*}
 		send "Cleared all the shit" to player
 
 every 10 seconds:
@@ -166,8 +167,8 @@ placeholderapi placeholder with the prefix "moon":
 every 1 second:
 	loop all players:
 		if {king} is loop-player:
-			add 1 to {kingTime::%loop-player%}
-	set {sorted::*} to sorted indices of {kingTime::*} in descending order
+			add 1 to {kingTdime::%loop-player%}
+	set {sorted::*} to sorted indices of {kingTdime::*} in descending order
 
 
 command /legend:
@@ -447,11 +448,13 @@ on region exit:
 			remove bossbar "control"
 			broadcast "&4%player%&c has been dethroned!"
 			clear {king}
+			#set {kingtime.%player's uuid%} to {kingtime.%player's uuid%} + difference between {kingstart.%player's uuid%} and now
 			if {kingtime.%player's uuid%} is not set:
 				set {kingtime.%player's uuid%} to difference between {kingstart.%player's uuid%} and now
 				clear {kingstart.%player's uuid%}
 			else if {kingtime.%player's uuid%} is set:
-				set {kingtime.%player's uuid%} to {kingtime.%player's uuid%} + difference between {kingstart.%player's uuid%} and now
+				add difference between {kingstart.%player's uuid%} and now to {kingtime.%player's uuid%}
+				#set {kingtime.%player's uuid%} to {kingtime.%player's uuid%} + difference between {kingstart.%player's uuid%} and now
 				clear {kingstart.%player's uuid%}
 
 command /regioncheck:
@@ -989,6 +992,9 @@ command /koth <text>:
 			make console execute "/rg flag temple entry -w world allow"
 			clear {king}
 			set {koth} to true
+			loop all players:
+				if {kingtime.%loop-player's uuid%} is set:
+					clear {kingtime.%loop-player's uuid%}
 		if arg-1 is "start":
 			make console execute "/rg flag temple entry -w world allow"
 			clear {king}
@@ -1041,6 +1047,7 @@ command /koth <text>:
 			clear {king}
 			clear {sorted::*}
 			clear {kingTime::*}
+			clear {kingtime::*}
 			#loop {kothinventories::*}:
 			#	broadcast loop-value
 			wait 1 second
