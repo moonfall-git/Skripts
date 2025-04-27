@@ -1,0 +1,38 @@
+command /fishing <text>:
+  trigger:
+    if arg-1 is "start":
+      set {fishing} to true
+      broadcast ""
+      broadcast colored "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>A<#64FBF0> <#69F8F0>F<#6DF4F1>i<#71F1F2>s<#75EDF2>h<#7AEAF3>i<#7EE6F4>n<#82E2F5>g<#86DFF5> <#8BDBF6>C<#8FD8F7>o<#93D4F7>m<#97D1F8>p<#9CCDF9>e<#A0CAF9>t<#A4C6FA>i<#A8C2FB>t<#ADBFFC>i<#B1BBFC>o<#B5B8FD>n<#B9B4FE> <#BEB1FE>h<#C2ADFF>a<#C2ADFF>s<#C2ADFF> <#C2ADFF>S<#C2ADFF>t<#C2ADFF>a<#C2ADFF>r<#C2ADFF>t<#C2ADFF>e<#C2ADFF>d<#C2ADFF>!"
+      broadcast ""
+      play sound "minecraft:entity.fishing_bobber.splash" with pitch 1.2 to all players
+      wait 1.5 seconds
+      broadcast ""
+      broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>F<#65FBF0>i<#6AF6F1>r<#6FF2F2>s<#75EEF2>t <#7FE5F4>t<#84E1F5>o <#8ED8F7>c<#94D4F7>a<#99D0F8>t<#9ECBF9>c<#A3C7FA>h <#ADBEFC>a <#F38F1F>T<#F59C39>r<#F7A952>o<#F9B66C>p<#FBC385>i<#FDD09F>c<#FFDDB8>a<#FDD09F>l <#F9B66C>F<#F7A952>i<#F59C39>s<#F38F1F>h <#B8B6FD>w<#BDB1FE>i<#C2ADFF>n<#C2ADFF>s <#C2ADFF>$<#C2ADFF>7<#C2ADFF>5<#C2ADFF>0<#C2ADFF>0<#C2ADFF>!"
+      broadcast ""
+      play sound "minecraft:block.note_block.pling" with pitch 1.5 to all players
+
+    if arg-1 is "silentstart":
+      set {fishing} to true
+    if arg-1 is "stop":
+      set {fishing} to false
+      broadcast "&4%player% &cended the fishing competition!"
+
+on tab complete of "/fishing":
+  set tab completions for position 1 to "start", and "stop"
+
+
+on fish catch:
+  if {fishing} is true:
+    if fish state = caught fish:
+      if fishing caught entity is a pufferfish:
+        set {fishing} to false
+        set {_nick} to the placeholder "hexnicks_nick" from event-player
+        broadcast ""
+        broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n &a&l$7500<#C2ADFF>!"
+        broadcast ""
+        send actionbar "&bYou won the Fishing Competition! GG!" to event-player
+        make console execute "eco give %event-player% 7500"
+        play sound "minecraft:entity.firework_rocket.blast_far" to all players
+        wait 1 second
+        play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
