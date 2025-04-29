@@ -7,10 +7,34 @@ command /fishing <text>:
       broadcast ""
       play sound "minecraft:entity.fishing_bobber.splash" with pitch 1.2 to all players
       wait 1.5 seconds
-      broadcast ""
-      broadcast "&r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>F<#65FBF0>i<#6AF6F1>r<#6FF2F2>s<#75EEF2>t <#7FE5F4>t<#84E1F5>o <#8ED8F7>c<#94D4F7>a<#99D0F8>t<#9ECBF9>c<#A3C7FA>h <#ADBEFC>a <#F38F1F>T<#F59C39>r<#F7A952>o<#F9B66C>p<#FBC385>i<#FDD09F>c<#FFDDB8>a<#FDD09F>l <#F9B66C>F<#F7A952>i<#F59C39>s<#F38F1F>h <#B8B6FD>w<#BDB1FE>i<#C2ADFF>n<#C2ADFF>s <#C2ADFF>$<#C2ADFF>7<#C2ADFF>5<#C2ADFF>0<#C2ADFF>0<#C2ADFF>!"
-      broadcast ""
+      set {_num} to a random integer between 1 and 5
+      if {_num} is 1:
+        set {fishing.entity} to a tropical fish
+        broadcast ""
+        broadcast colored "&r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>F<#65FBF0>i<#6AF6F1>r<#6FF2F2>s<#75EEF2>t <#7FE5F4>t<#84E1F5>o <#8ED8F7>c<#94D4F7>a<#99D0F8>t<#9ECBF9>c<#A3C7FA>h <#ADBEFC>a <#F38F1F>T<#F59C39>r<#F7A952>o<#F9B66C>p<#FBC385>i<#FDD09F>c<#FFDDB8>a<#FDD09F>l <#F9B66C>F<#F7A952>i<#F59C39>s<#F38F1F>h <#B8B6FD>w<#BDB1FE>i<#C2ADFF>n<#C2ADFF>s &a&l$7,500<#C2ADFF>!"
+        broadcast ""
+      if {_num} is 2:
+        set {fishing.entity} to a pufferfish
+        broadcast ""
+        broadcast colored "&r &r &r &r &r &r &r &r <#60FFEF>F<#63FDEF>i<#65FBF0>s<#68F9F0>r<#6AF6F1>t <#6FF2F2>t<#72F0F2>o <#77ECF3>c<#7AE9F3>a<#7CE7F4>t<#7FE5F4>c<#82E3F4>h <#87DFF5>a <#FCFF37>P<#FCFF56>u<#FDFF76>f<#FDFF95>f<#FEFFB5>e<#FEFFD4>r<#FEFFA8>f<#FDFF7D>i<#FDFF51>s<#FCFF25>h <#8ED8F7>w<#91D6F7>i<#94D4F7>n<#96D2F8>s <#9BCDF9>a <#A0C9FA>R<#A3C7FA>a<#A6C5FA>f<#A8C3FB>f<#ABC0FB>l<#ADBEFC>e <#B3BAFC>T<#B5B8FD>i<#B8B6FD>c<#BAB3FE>k<#BDB1FE>e<#BFAFFF>t<#C2ADFF>!"
+        broadcast ""
+      if {_num} is 3:
+        set {fishing.entity} to a cod
+        broadcast ""
+        broadcast colored "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>F<#64FBF0>i<#69F8F0>r<#6DF4F1>s<#71F1F2>t <#7AEAF3>t<#7EE6F4>o <#86DFF5>c<#8BDBF6>a<#8FD8F7>t<#93D4F7>c<#97D1F8>h <#A0CAF9>a <#F8D985>Raw Cod <#ADBFFC>w<#B1BBFC>i<#B5B8FD>n<#B9B4FE>s &a&l$2,000<#C2ADFF>!"
+        broadcast ""
+      if {_num} is 4:
+        set {fishing.entity} to a bone
+        broadcast ""
+        broadcast colored "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>F<#64FBF0>i<#69F8F0>r<#6DF4F1>s<#71F1F2>t <#7AEAF3>t<#7EE6F4>o <#86DFF5>c<#8BDBF6>a<#8FD8F7>t<#93D4F7>c<#97D1F8>h <#A0CAF9>a &fBone <#ADBFFC>w<#B1BBFC>i<#B5B8FD>n<#B9B4FE>s &a&l$10,000<#C2ADFF>!"
+        broadcast ""
+      if {_num} is 5:
+        set {fishing.entity} to a saddle
+        broadcast ""
+        broadcast colored "&r &r &r &r &r &r &r &r &r &r &r &r &r &r &r &r <#60FFEF>F<#64FBF0>i<#69F8F0>r<#6DF4F1>s<#71F1F2>t <#7AEAF3>t<#7EE6F4>o <#86DFF5>c<#8BDBF6>a<#8FD8F7>t<#93D4F7>c<#97D1F8>h <#A0CAF9>a <#FF9C00>S<#FF9C00>a<#FF9C00>d<#FF9C00>d<#FF9C00>l<#FF9C00>e <#ADBFFC>w<#B1BBFC>i<#B5B8FD>n<#B9B4FE>s &a&l$6,000<#C2ADFF>!"
+        broadcast ""
       play sound "minecraft:block.note_block.pling" with pitch 1.5 to all players
+
 
     if arg-1 is "silentstart":
       set {fishing} to true
@@ -25,14 +49,67 @@ on tab complete of "/fishing":
 on fish catch:
   if {fishing} is true:
     if fish state = caught fish:
-      if fishing caught entity is a pufferfish:
-        set {fishing} to false
-        set {_nick} to the placeholder "hexnicks_nick" from event-player
-        broadcast ""
-        broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n &a&l$7500<#C2ADFF>!"
-        broadcast ""
-        send actionbar "&bYou won the Fishing Competition! GG!" to event-player
-        make console execute "eco give %event-player% 7500"
-        play sound "minecraft:entity.firework_rocket.blast_far" to all players
-        wait 1 second
-        play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
+      if {fishing.entity} is a tropical fish:
+        if item of fishing caught entity is {fishing.entity}:
+          set {fishing} to false
+          set {_nick} to the placeholder "hexnicks_nick" from event-player
+          broadcast ""
+          broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n &a&l$7,500<#C2ADFF>!"
+          broadcast ""
+          send actionbar "&bYou won the Fishing Competition! GG!" to event-player
+          make console execute "eco give %event-player% 7500"
+          play sound "minecraft:entity.firework_rocket.blast_far" to all players
+          wait 1 second
+          play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
+
+      else if {fishing.entity} is a bone:
+        if item of fishing caught entity is {fishing.entity}:
+          set {fishing} to false
+          set {_nick} to the placeholder "hexnicks_nick" from event-player
+          broadcast ""
+          broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n &a&l$10,000<#C2ADFF>!"
+          broadcast ""
+          send actionbar "&bYou won the Fishing Competition! GG!" to event-player
+          make console execute "eco give %event-player% 10000"
+          play sound "minecraft:entity.firework_rocket.blast_far" to all players
+          wait 1 second
+          play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
+
+      else if {fishing.entity} is a cod:
+        if item of fishing caught entity is {fishing.entity}:
+          set {fishing} to false
+          set {_nick} to the placeholder "hexnicks_nick" from event-player
+          broadcast ""
+          broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n &a&l$2,000<#C2ADFF>!"
+          broadcast ""
+          send actionbar "&bYou won the Fishing Competition! GG!" to event-player
+          make console execute "eco give %event-player% 2000"
+          play sound "minecraft:entity.firework_rocket.blast_far" to all players
+          wait 1 second
+          play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
+
+      else if {fishing.entity} is a pufferfish:
+        if item of fishing caught entity is {fishing.entity}:
+          set {fishing} to false
+          set {_nick} to the placeholder "hexnicks_nick" from event-player
+          broadcast ""
+          broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n a &e&lRaffle Ticket<#C2ADFF>!"
+          broadcast ""
+          send actionbar "&bYou won the Fishing Competition! GG!" to event-player
+          make console execute "raffle %event-player%"
+          play sound "minecraft:entity.firework_rocket.blast_far" to all players
+          wait 1 second
+          play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
+
+      else if {fishing.entity} is a saddle:
+        if item of fishing caught entity is {fishing.entity}:
+          set {fishing} to false
+          set {_nick} to the placeholder "hexnicks_nick" from event-player
+          broadcast ""
+          broadcast colored "%{_nick}% <#60FFEF>c<#6AF7F1>a<#74EFF2>u<#7DE6F4>g<#87DEF5>h<#91D6F7>t <#A5C6FA>t<#AEBDFC>h<#B8B5FD>e <#C2ADFF>f<#C2ADFF>i<#C2ADFF>s<#C2ADFF>h <#C2ADFF>a<#C2ADFF>n<#C2ADFF>d <#C2ADFF>w<#C2ADFF>o<#C2ADFF>n &a&l$6,000<#C2ADFF>!"
+          broadcast ""
+          send actionbar "&bYou won the Fishing Competition! GG!" to event-player
+          make console execute "eco give %event-player% 6000"
+          play sound "minecraft:entity.firework_rocket.blast_far" to all players
+          wait 1 second
+          play sound "minecraft:entity.firework_rocket.twinkle_far" to all players
