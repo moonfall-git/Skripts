@@ -2,6 +2,6 @@ command /mcd <text>:
   trigger:
     create a new webhook message:
       webhook: "https://discord.com/api/webhooks/1364488984100601927/WaSBPtwbCriP5fp_eeXXftY8_8lKc0VNpF5S_8BrmLeQWwRYriOBU0ubLw1IB6vJ7NQv"
-      message: "```- %arg-1%```"
+      message: "-  %arg-1%"
       username: "Moon Fall"
       avatar: "https://www.moon-fall.net/uploads/f34167b20426b3a5475baa311749091893a3432elogo.webp"

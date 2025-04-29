@@ -1,0 +1,18 @@
+command /list:
+  cooldown: 5 seconds
+  trigger:
+    clear {listlist::*}
+    loop all players:
+      set {_nick} to the placeholder "hexnicks_nick" from loop-player
+      set {_isAFK} to the placeholder "essentials_afk" from loop-player
+      if {_isAFK} = "no":
+        add "%{_nick}%" to {listlist::*}
+      else if {_isAFK} = "yes":
+        add "%{_nick}% &7&oAFK&r" to {listlist::*}
+
+    set {_online} to the placeholder "server_online" from player
+    send ""
+    send ""
+    send "&7There are currently <#A6DBFF>%{_online}%&7 players online!"
+    loop {listlist::*}:
+      send "&7• &r%loop-value%" to player
