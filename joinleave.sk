@@ -60,7 +60,10 @@ on inventory click:
 
 
 
-
+on quit:
+	set {_nick} to the placeholder "hexnicks_nick" from event-player
+	if player is not op:
+		broadcast "&c-&f %{_nick}%"
 
 
 
@@ -86,5 +89,8 @@ on join:
 		if player has permission "custom.5":
 			broadcast "<#40E0D0>W<#44DED2>i<#49DDD3>t<#4DDBD5>h<#51D9D6> <#56D8D8>a<#5AD6D9> <#5ED4DB>f<#63D2DD>e<#67D1DE>w<#6BCFE0> <#70CDE1>l<#74CCE3>e<#78CAE4>s<#7DC8E6>s<#81C7E8> <#85C5E9>b<#8AC3EB>r<#8EC1EC>a<#92C0EE>i<#97BEEF>n<#9BBCF1>-<#9FBBF2>c<#A4B9F4>e<#A8B7F6>l<#ACB6F7>l<#B1B4F9>s<#B5B2FA>,<#B9B0FC> <#FBADFF>%{_nick}% <#BEAFFD>j<#C2ADFF>o<#C2ADFF>i<#C2ADFF>n<#C2ADFF>s<#C2ADFF> <#C2ADFF>t<#C2ADFF>h<#C2ADFF>e<#C2ADFF> <#C2ADFF>g<#C2ADFF>a<#C2ADFF>m<#C2ADFF>e!"
 			play sound "minecraft:entity.experience_orb.pickup" to all players
-		else if player does not have permission "custom.1" or "custom.2" or "custom.3" or "custom.4" or "custom.5":
+		if player has permission "custom.6":
+			broadcast "<#93E6F6>T<#8DE4F6>h<#87E3F7>e <#7BE0F8>m<#74DEF8>a<#6EDDF8>n<#68DBF9>, <#5CD8F9>t<#56D7FA>h<#50D5FA>e <#43D2FB>m<#3DD0FB>y<#37CFFC>t<#31CDFC>h<#2BCCFC>, <#1FC9FD>t<#19C7FE>h<#12C6FE>e <#06C3FF>L<#00C1FF>e<#00C1FF>g<#00C1FF>e<#00C1FF>n<#00C1FF>d<#00C1FF>a<#00C1FF>r<#00C1FF>y %{_nick}% <#00C1FF>h<#00C1FF>a<#00C1FF>s <#00C1FF>a<#00C1FF>r<#00C1FF>r<#00C1FF>i<#00C1FF>v<#00C1FF>e<#00C1FF>d<#00C1FF>!"
+			play sound "minecraft:entity.experience_orb.pickup" to all players
+		else if player does not have permission "custom.1" or "custom.2" or "custom.3" or "custom.4" or "custom.5" or "custom.6":
 			broadcast "&b+&f %{_nick}%"
